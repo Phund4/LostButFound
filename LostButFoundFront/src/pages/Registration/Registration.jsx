@@ -1,10 +1,10 @@
 import "../../styles/registration/registration.sass"
 function Registration() {
-    function sendRegistrationData() {
+    async function sendRegistrationData() {
         let name = document.getElementById('registration-input-name').value;
         let email = document.getElementById('registration-input-email').value;
         try {
-            const response = fetch("https://localhost:7110/api/User/Register", {
+            const response = await fetch("https://localhost:7110/api/User/Register", {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
@@ -14,9 +14,10 @@ function Registration() {
                     name: name,
                     email: email
                 }),
-            });
+            }
+            );
 
-            const result = response.json();
+            const result = await response.json();
             console.log("Success:", result);
         } catch (error) {
             console.error("Error:", error);
