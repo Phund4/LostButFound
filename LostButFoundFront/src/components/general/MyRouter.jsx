@@ -1,5 +1,5 @@
 import App from '../../pages/App';
-import Registration from '../../pages/Registration'
+import Registration from '../../pages/Registration/Registration'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([

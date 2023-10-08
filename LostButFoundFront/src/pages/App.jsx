@@ -10,7 +10,6 @@ const App = () => {
 
     return (
         <>
-            <h1>Redirecting to registration</h1>
         </>
     );
 }
