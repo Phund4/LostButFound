@@ -1,4 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using LostButFound.API.DAL;
+using LostButFound.API.DAL.Interfaces;
+using LostButFound.API.DAL.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connection = builder.Configuration.GetConnectionString("LostButFoundConnectionString");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connection));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Add services to the container.
 
