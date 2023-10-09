@@ -4,7 +4,7 @@ function Registration() {
         let name = document.getElementById('registration-input-name').value;
         let email = document.getElementById('registration-input-email').value;
         try {
-            const response = await fetch("https://localhost:7110/api/User/Register", {
+            const response = await fetch("https://192.168.31.71:7110/api/User/Register", {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
