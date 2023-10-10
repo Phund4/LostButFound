@@ -1,0 +1,27 @@
+@import "../../styles/general/general"
+
+.form__input
+    outline: none
+    font-size: $registration-normal-font-size
+    font-family: $registration-body-font
+    position: absolute
+    border: 2.5px solid $black-color
+    background-color: $white-color
+    border-radius: 0.25rem
+    width: 100%
+    height: 100%
+    z-index: 10
+    padding: 1.125rem
+    transition: transform 0.3s
+    &::placeholder
+        transition: opacity 0.5s
+    &:focus
+        &::placeholder
+            opacity: 0
+            transition: 0.3s
+
+.form__box
+    width: 19.5rem
+    height: 3.75rem
+    position: relative
+

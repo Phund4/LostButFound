@@ -1,0 +1,32 @@
+@import "../../styles/general/general"
+
+.form
+    font-family: $registration-body-font
+    font-size: $registration-normal-font-size
+    background-color: $white-color
+    height: 100vh
+    display: grid
+    place-items: center
+    margin: 0 1.5rem
+
+.form__content
+    display: grid
+    row-gap: 1.5rem
+    padding: 2rem
+    border-radius: 0.25rem
+    border: 2.5px solid $black-color
+
+h1
+    position: relative
+    display: grid
+    place-items: center
+    place-content: center
+
+@keyframes registration-input-animation 
+    0%
+        transform: translate(0)  
+    40%
+        transform: translate(-9px, -9px)
+    60%
+        transform: translate(-7px, -7px)
+        

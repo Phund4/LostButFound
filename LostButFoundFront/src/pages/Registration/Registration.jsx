@@ -1,4 +1,8 @@
-import "../../styles/registration/registration.sass"
+import "../../components/MyForm/MyForm"
+import MyForm from "../../components/MyForm/MyForm";
+import MyInput from "../../components/MyInput/MyInput";
+import MyFormButton from "../../components/MyFormButton/MyFormButton";
+
 function Registration() {
     async function sendRegistrationData() {
         let name = document.getElementById('registration-input-name').value;
@@ -13,49 +17,47 @@ function Registration() {
                 body: JSON.stringify({
                     name: name,
                     email: email
-                }),
-            }
-            );
-
-            const result = await response.json();
-            console.log("Success:", result);
+                })});
+            console.log(response);
+            document.location.href = "/login";
         } catch (error) {
-            console.error("Error:", error);
+            console.error(error);
         }
     }
 
+    const nameInput = <MyInput
+        type="text"
+        placeholder="Enter Name"
+        id="registration-input-name"
+        key="registration-input-name"
+    />
+
+    const surnameInput = <MyInput
+        type="text"
+        placeholder="Enter Surname"
+        id="registration-input-surname"
+        key="registration-input-surname"
+    />
+
+    const emailInput = <MyInput
+        type="email"
+        placeholder="Enter Email"
+        id="registration-input-email"
+        key="registration-input-email"
+    />
+
+    const regButton = <MyFormButton
+        buttonText="Sign Up"
+        handleClick={sendRegistrationData}
+        key="signUpButton"
+    />
+
     return (
         <>
-            <div className="form">
-                <form action="/" className="form__content">
-                    <h1>Register Form</h1>
-                    <div className="form__box">
-                        <input
-                            type="text"
-                            placeholder="Enter Name"
-                            className="form__input"
-                            id="registration-input-name"
-                        />
-                    </div>
-                    <div className="form__box">
-                        <input
-                            type="email"
-                            placeholder="Enter Email"
-                            className="form__input"
-                            id="registration-input-email"
-                        />
-                    </div>
-                    <div className="form__button">
-                        <button
-                            type="button"
-                            className="form__submit"
-                            onClick={sendRegistrationData}
-                        >
-                            Sign Up
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <MyForm
+                headerText="Register Form"
+                childrens={[nameInput, surnameInput, emailInput, regButton]}
+            />
         </>
     )
 }
