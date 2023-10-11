@@ -4,6 +4,7 @@ import "./myinput.sass"
 function MyInput(props) {
     return (
         <div className="form__box">
+            <p className="message-error hide" id={props.messageId}></p>
             <input
                 type={props.type}
                 placeholder={props.placeholder}

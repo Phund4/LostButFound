@@ -4,13 +4,11 @@
     outline: none
     font-size: $registration-normal-font-size
     font-family: $registration-body-font
-    position: absolute
     border: 2.5px solid $black-color
     background-color: $white-color
     border-radius: 0.25rem
     width: 100%
     height: 100%
-    z-index: 10
     padding: 1.125rem
     transition: transform 0.3s
     &::placeholder
@@ -22,6 +20,13 @@
 
 .form__box
     width: 19.5rem
-    height: 3.75rem
-    position: relative
+    height: min-content
 
+.uncorrect-input
+    border: 2.5px solid $red-color
+
+.message-error
+    color: $red-color
+    
+.hide
+    display: none
