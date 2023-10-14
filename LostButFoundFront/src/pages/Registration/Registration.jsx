@@ -3,97 +3,33 @@ import MyForm from "../../components/MyForm/MyForm";
 import MyInput from "../../components/MyInput/MyInput";
 import MyFormButton from "../../components/MyFormButton/MyFormButton";
 
-function validFullname(name, input, messageError) {
-    if (name.length <= 6) {
-        input.classList.add('uncorrect-input');
-        messageError.classList.remove('hide');
-        messageError.textContent = "The name must be at least 6 characters long";
-        return false;
-    } 
-    return true;
-}
-
-function validLogin(login, input, messageError) {
-    if (login.length <= 6) {
-        input.classList.add('uncorrect-input');
-        messageError.classList.remove('hide');
-        messageError.textContent = "The login must be at least 6 characters long";
-        return false;
-    } 
-    return true;
-}
-
-function validEmail(email, input, messageError) {
-    let re = /^[\w]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;
-    let valid = re.test(email);
-    if (!valid) {
-        input.classList.add('uncorrect-input');
-        messageError.classList.remove('hide');
-        messageError.textContent = "Uncorrect email";
-        return false;
-    } 
-    return true;
-}
-
-function validPassword(password, input, messageError) {
-    if (password.length < 6) {
-        input.classList.add('uncorrect-input');
-        messageError.classList.remove('hide');
-        messageError.textContent = "The password must be at least 6 characters long";
-        return false;
-    } 
-    return true;
-}
-
-function validRepeatPassword(repeatPassword, password, input, messageError) {
-    if (password != repeatPassword) {
-        input.classList.add('uncorrect-input');
-        messageError.classList.remove('hide');
-        messageError.textContent = "Еhe entered password is not identical";
-        return false;
-    } 
-    return true;
-}
-
-function checkFields(fullname, login, email, password, repeatPassword) {
-    let messageErrorFullname = document.getElementById('registration-input-fullname-message-error');
-    let messageErrorLogin = document.getElementById('registration-input-login-message-error');
-    let messageErrorEmail = document.getElementById('registration-input-email-message-error');
-    let messageErrorPassword = document.getElementById('registration-input-password-message-error');
-    let messageErrorRepeatPassword = document.getElementById('registration-input-repeat-password-message-error');
-    if (!validFullname(fullname.value, fullname, messageErrorFullname) ||
-        !validLogin(login.value, login, messageErrorLogin) || 
-        !validEmail(email.value, email, messageErrorEmail) ||
-        !validPassword(password.value, password, messageErrorPassword) ||
-        !validRepeatPassword(repeatPassword.value, password.value, repeatPassword, messageErrorRepeatPassword)) {
-        return false;
-    }
-    return true;
-}
-
 function Registration() {
     async function sendRegistrationData() {
-        let fullname = document.getElementById('registration-input-fullname');
-        let login = document.getElementById('registration-input-login');
-        let email = document.getElementById('registration-input-email');
-        let password = document.getElementById('registration-input-password');
-        let repeatPassword = document.getElementById('registration-input-repeat-password');
-        if (!checkFields(fullname, login, email, password, repeatPassword)) return;
+        let fullname = document.getElementById('registration-input-fullname').value;
+        let login = document.getElementById('registration-input-login').value;
+        let email = document.getElementById('registration-input-email').value;
+        let password = document.getElementById('registration-input-password').value;
+        let inputs = document.getElementsByClassName('form__input');
+        for (let i=0; i<inputs.length; i++) {
+            let el = inputs[i];
+            if (el.classList.contains('empty-value')) return;
+        }
+        console.log('Done');
         try {
-            const response = await fetch("https://192.168.31.71:7110/api/User/Register", {
+            const response = await fetch("https://localhost:7110/api/User/Register", {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
                     "Content-Type": 'application/json'
                 },
                 body: JSON.stringify({
-                    name: fullname.value,
-                    login: login.value,
-                    email: email.value,
-                    password: password.value
+                    FullName: fullname,
+                    Login: login,
+                    Email: email,
+                    Password: password
                 })});
             console.log(response);
-            document.location.href = "/login";
+            document.location.href = "/confirmemail";
         } catch (error) {
             console.error(error);
         }
@@ -105,6 +41,8 @@ function Registration() {
         id="registration-input-fullname"
         messageId="registration-input-fullname-message-error"
         key="registration-input-fullname"
+        isValidInput={value => value.length >= 6}
+        messageError="The fullname must be at least 6 characters long"
     />
 
     const loginInput = <MyInput
@@ -113,6 +51,8 @@ function Registration() {
         id="registration-input-login"
         messageId="registration-input-login-message-error"
         key="registration-input-login"
+        isValidInput={value => value.length >= 6}
+        messageError="The login must be at least 6 characters long"
     />
 
     const emailInput = <MyInput
@@ -121,6 +61,11 @@ function Registration() {
         id="registration-input-email"
         messageId="registration-input-email-message-error"
         key="registration-input-email"
+        isValidInput={(value) => {
+            let re = /^[\w]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;
+            return  re.test(value);
+        }}
+        messageError="Uncorrect email"
     />
 
     const passwordInput = <MyInput
@@ -129,6 +74,8 @@ function Registration() {
         id="registration-input-password"
         messageId="registration-input-password-message-error"
         key="registration-input-password"
+        isValidInput={value => value.length >= 6}
+        messageError="The password must be at least 6 characters long"
     />
 
     const repeatPasswordInput = <MyInput
@@ -137,6 +84,11 @@ function Registration() {
         id="registration-input-repeat-password"
         messageId="registration-input-repeat-password-message-error"
         key="registration-input-repeat-password"
+        isValidInput={(value) => {
+            let password = document.getElementById('registration-input-password').value;
+            return password == value;
+        }}
+        messageError="The entered password is not identical"
     />
 
     const regButton = <MyFormButton
@@ -155,4 +107,4 @@ function Registration() {
     )
 }
 
-export default Registration
+export default Registration;
