@@ -6,11 +6,11 @@ function MyInput(props) {
         let messageError = document.getElementById(props.messageId);
         let input = document.getElementById(props.id);
         if (!props.isValidInput(input.value)) {
-            input.classList.add('uncorrect-input');
+            input.classList.add('incorrect-input');
             messageError.classList.remove('hide');
             messageError.textContent = props.messageError;
         } else {
-            input.classList.remove('uncorrect-input', 'empty-value');
+            input.classList.remove('incorrect-input', 'incorrect-value');
             messageError.classList.add('hide');
             messageError.textContent = "";
         }
@@ -22,9 +22,10 @@ function MyInput(props) {
             <input
                 type={props.type}
                 placeholder={props.placeholder}
-                className="form__input empty-value"
+                className="form__input incorrect-value"
                 id={props.id}
                 onBlur={isValid}
+                ref={props.refInput}
             />
         </div>
     )

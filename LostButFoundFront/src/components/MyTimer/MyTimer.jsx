@@ -7,7 +7,7 @@ function MyTimer(props) {
         let timer = document.getElementById('time');
         let timerText = document.getElementById('timer-text');
         startTimer(props.duration, timer, timerText);
-    }, )
+    }, );
 
     function startTimer(duration, display, text) {
         var time = duration;

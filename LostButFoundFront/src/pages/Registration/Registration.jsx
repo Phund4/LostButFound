@@ -2,19 +2,29 @@ import "../../components/MyForm/MyForm"
 import MyForm from "../../components/MyForm/MyForm";
 import MyInput from "../../components/MyInput/MyInput";
 import MyFormButton from "../../components/MyFormButton/MyFormButton";
+import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 function Registration() {
+    const navigate = useNavigate();
+    let fullname = useRef(null);
+    let login = useRef(null);
+    let email = useRef(null);
+    let password = useRef(null);
+    let repeatPassword = useRef(null);
+    let errorMsg = useRef(null);
+    const errors = {
+        400: "This user already exists",
+        404: "Something went wrong...",
+        500: "Server error"
+    }
+
     async function sendRegistrationData() {
-        let fullname = document.getElementById('registration-input-fullname').value;
-        let login = document.getElementById('registration-input-login').value;
-        let email = document.getElementById('registration-input-email').value;
-        let password = document.getElementById('registration-input-password').value;
-        let inputs = document.getElementsByClassName('form__input');
+        let inputs = [fullname.current, login.current, email.current, password.current, repeatPassword.current];
         for (let i=0; i<inputs.length; i++) {
             let el = inputs[i];
-            if (el.classList.contains('empty-value')) return;
+            if (el.classList.contains('incorrect-value') || el.value == "") return;
         }
-        console.log('Done');
         try {
             const response = await fetch("https://localhost:7110/api/User/Register", {
                 method: "POST",
@@ -23,15 +33,20 @@ function Registration() {
                     "Content-Type": 'application/json'
                 },
                 body: JSON.stringify({
-                    FullName: fullname,
-                    Login: login,
-                    Email: email,
-                    Password: password
-                })});
-            console.log(response);
-            document.location.href = "/confirmemail";
+                    FullName: fullname.current.value,
+                    Login: login.current.value,
+                    Email: email.current.value,
+                    Password: password.current.value
+                }
+            )});
+            const status = response.status;
+            if (errors[status]) {
+                errorMsg.current.value = errors[status];
+            } else {
+                navigate("/confirmemail");
+            }
         } catch (error) {
-            console.error(error);
+            errorMsg.current.textContent = errors[500];
         }
     }
 
@@ -43,6 +58,7 @@ function Registration() {
         key="registration-input-fullname"
         isValidInput={value => value.length >= 6}
         messageError="The fullname must be at least 6 characters long"
+        refInput={fullname}
     />
 
     const loginInput = <MyInput
@@ -53,8 +69,9 @@ function Registration() {
         key="registration-input-login"
         isValidInput={value => value.length >= 6}
         messageError="The login must be at least 6 characters long"
+        refInput={login}
     />
-
+    
     const emailInput = <MyInput
         type="email"
         placeholder="Enter Email"
@@ -63,9 +80,10 @@ function Registration() {
         key="registration-input-email"
         isValidInput={(value) => {
             let re = /^[\w]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;
-            return  re.test(value);
+            return re.test(value);
         }}
         messageError="Uncorrect email"
+        refInput={email}
     />
 
     const passwordInput = <MyInput
@@ -76,6 +94,7 @@ function Registration() {
         key="registration-input-password"
         isValidInput={value => value.length >= 6}
         messageError="The password must be at least 6 characters long"
+        refInput={password}
     />
 
     const repeatPasswordInput = <MyInput
@@ -89,6 +108,13 @@ function Registration() {
             return password == value;
         }}
         messageError="The entered password is not identical"
+        refInput={repeatPassword}
+    />
+
+    const messageError = <p
+        id="registration-status-error"
+        key="registration-status-error"
+        ref={errorMsg}
     />
 
     const regButton = <MyFormButton
@@ -101,7 +127,7 @@ function Registration() {
         <>
             <MyForm
                 headerText="Register Form"
-                childrens={[fullnameInput, loginInput, emailInput, passwordInput, repeatPasswordInput, regButton]}
+                childrens={[fullnameInput, loginInput, emailInput, passwordInput, repeatPasswordInput, messageError, regButton]}
             />
         </>
     )
