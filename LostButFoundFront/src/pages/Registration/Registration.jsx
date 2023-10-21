@@ -117,6 +117,14 @@ function Registration() {
         ref={errorMsg}
     />
 
+    const buttonLink = <p
+        className="link-to-login"
+        onClick={() => navigate("/login")}
+        key="link-to-login"
+    >
+        I am already registered
+    </p>
+
     const regButton = <MyFormButton
         buttonText="Sign Up"
         handleClick={sendRegistrationData}
@@ -127,7 +135,7 @@ function Registration() {
         <>
             <MyForm
                 headerText="Register Form"
-                childrens={[fullnameInput, loginInput, emailInput, passwordInput, repeatPasswordInput, messageError, regButton]}
+                childrens={[fullnameInput, loginInput, emailInput, passwordInput, repeatPasswordInput, messageError, buttonLink, regButton]}
             />
         </>
     )
