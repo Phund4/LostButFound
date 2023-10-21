@@ -41,7 +41,7 @@ function Registration() {
             )});
             const status = response.status;
             if (errors[status]) {
-                errorMsg.current.value = errors[status];
+                errorMsg.current.textContent = errors[status];
             } else {
                 navigate("/confirmemail");
             }

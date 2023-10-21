@@ -6,7 +6,7 @@ function MyForm(props) {
         <div className="form">
             <form action="/" className="form__content">
                 <h1>{props.headerText}</h1>
-                {props.childrens.map(child => child)}
+                {props?.childrens.map(child => child)}
             </form>
         </div>
     )

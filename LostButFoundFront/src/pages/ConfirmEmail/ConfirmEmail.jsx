@@ -17,7 +17,7 @@ function ConfirmEmail() {
 
     async function sendCode() {
         try {
-            const response = await fetch("https://localhost:7110/api/User/ConfirmRegister", {
+            const response = await fetch(`https://localhost:7110//api/User/ConfirmRegister?code=${code};`, {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
@@ -29,7 +29,7 @@ function ConfirmEmail() {
             )});
             const status = response.status;
             if (errors[status]) {
-                errorMsg.current.value = errors[status];
+                errorMsg.current.textContent = errors[status];
             } else {
                 navigate("/login");
             }
@@ -62,7 +62,8 @@ function ConfirmEmail() {
     />
 
     const confirmEmailTimer = <MyTimer
-        duration={120}
+        duration={5}
+        clickHandler={sendCode}
         key="confirm-email-timer"
     />
 
