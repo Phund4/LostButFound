@@ -38,6 +38,24 @@ function ConfirmEmail() {
         }
     }
 
+    async function resendCode() {
+        try {
+            const response = await fetch(`https://localhost:7110//api/User/ConfirmRegister?code=${code};`, {
+                method: "GET",
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                }
+            });
+            const status = response.status;
+            if (errors[status]) {
+                errorMsg.current.textContent = errors[status];
+            }
+        } catch (error) {
+            errorMsg.current.textContent = errors[500];
+        }
+    }
+
     const confirmCodeInput = <MyInput
         type="password"
         placeholder="Enter Code"
@@ -63,7 +81,7 @@ function ConfirmEmail() {
 
     const confirmEmailTimer = <MyTimer
         duration={5}
-        clickHandler={sendCode}
+        clickHandler={resendCode}
         key="confirm-email-timer"
     />
 

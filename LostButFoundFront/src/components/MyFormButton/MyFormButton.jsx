@@ -7,7 +7,7 @@ function MyFormButton(props) {
             <button
                 type="button"
                 className="form__submit"
-                onClick={props.handleClick}
+                onClick={props?.handleClick}
             >
                 {props?.buttonText}
             </button>

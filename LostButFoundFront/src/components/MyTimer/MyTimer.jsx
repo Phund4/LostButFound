@@ -6,7 +6,7 @@ function MyTimer(props) {
     let timer = useRef(null);
     let timerText = useRef(null);
     useEffect(() => {
-        startTimer(props.duration, timer.current, timerText.current);
+        startTimer(props?.duration, timer?.current, timerText?.current);
     }, );
 
     function startTimer(duration, display, text) {
@@ -16,7 +16,7 @@ function MyTimer(props) {
             if (--time < 0) {
                 text.textContent = "Send me code again";
                 text.classList.add("underline-text");
-                text.onclick = props.clickHandler;
+                text.onclick = props?.clickHandler;
                 clearInterval(timerIntervalId);
             }
         }, 1000);
@@ -33,7 +33,7 @@ function MyTimer(props) {
                     id="time" 
                     ref={timer}
                 >
-                    {props.duration}
+                    {props?.duration}
                 </span> seconds left!
             </div>
         </>
