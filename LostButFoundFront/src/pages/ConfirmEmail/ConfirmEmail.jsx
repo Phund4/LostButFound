@@ -9,6 +9,7 @@ function ConfirmEmail() {
     const navigate = useNavigate();
     let code = useRef(null);
     let errorMsg = useRef(null);
+    let timerText = useRef(null);
     const errors = {
         400: "Incorrect Code",
         404: "Something went wrong...",
@@ -17,7 +18,7 @@ function ConfirmEmail() {
 
     async function sendCode() {
         try {
-            const response = await fetch(`https://localhost:7110//api/User/ConfirmRegister?code=${code};`, {
+            const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code};`, {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
@@ -32,24 +33,6 @@ function ConfirmEmail() {
                 errorMsg.current.textContent = errors[status];
             } else {
                 navigate("/login");
-            }
-        } catch (error) {
-            errorMsg.current.textContent = errors[500];
-        }
-    }
-
-    async function resendCode() {
-        try {
-            const response = await fetch(`https://localhost:7110//api/User/ConfirmRegister?code=${code};`, {
-                method: "GET",
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
-                }
-            });
-            const status = response.status;
-            if (errors[status]) {
-                errorMsg.current.textContent = errors[status];
             }
         } catch (error) {
             errorMsg.current.textContent = errors[500];
@@ -81,8 +64,8 @@ function ConfirmEmail() {
 
     const confirmEmailTimer = <MyTimer
         duration={5}
-        clickHandler={resendCode}
         key="confirm-email-timer"
+        timerRef={timerText}
     />
 
     return (

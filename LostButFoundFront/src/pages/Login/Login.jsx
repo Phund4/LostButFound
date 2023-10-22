@@ -38,7 +38,7 @@ function Login() {
             if (errors[status]) {
                 errorMsg.current.textContent = errors[status];
             } else {
-                navigate("/lostbutfound");
+                navigate("/myprofile");
             }
         } catch (error) {
             errorMsg.current.textContent = errors[500];

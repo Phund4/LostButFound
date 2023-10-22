@@ -1,13 +1,21 @@
 /* eslint-disable react/prop-types */
-import {useEffect, useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import "./mytimer.sass"
 
 function MyTimer(props) {
     let timer = useRef(null);
-    let timerText = useRef(null);
+    let timerText = <><span id="time" ref={timer}>{props?.duration}</span> seconds left!</>;
+    let [timerState, setTimerState] = useState(timerText);
+    
     useEffect(() => {
-        startTimer(props?.duration, timer?.current, timerText?.current);
+        startTimer(props?.duration, timer?.current, props.timerRef?.current);
     }, );
+
+    const errors = {
+        400: "Incorrect Code",
+        404: "Something went wrong...",
+        500: "Server error"
+    }
 
     function startTimer(duration, display, text) {
         var time = duration;
@@ -16,10 +24,30 @@ function MyTimer(props) {
             if (--time < 0) {
                 text.textContent = "Send me code again";
                 text.classList.add("underline-text");
-                text.onclick = props?.clickHandler;
+                text.onclick = resendCode;
                 clearInterval(timerIntervalId);
             }
         }, 1000);
+    }
+
+    async function resendCode() {
+        try {
+            const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister`, {
+                method: "GET",
+                headers: {
+                    "Accept": 'application/json',
+                    "Content-Type": 'application/json'
+                }
+            });
+            setTimerState(timerText);
+            startTimer(props?.duration, timer?.current, props.timerRef?.current);
+            const status = response.status;
+            if (errors[status]) {
+                return;
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -27,14 +55,9 @@ function MyTimer(props) {
             <div 
                 className="timer-text" 
                 id="timer-text" 
-                ref={timerText}
+                ref={props.timerRef}
             >
-                <span 
-                    id="time" 
-                    ref={timer}
-                >
-                    {props?.duration}
-                </span> seconds left!
+                {timerState}
             </div>
         </>
     )
