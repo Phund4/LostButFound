@@ -18,16 +18,13 @@ function ConfirmEmail() {
 
     async function sendCode() {
         try {
-            const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code};`, {
+            const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code.current.value}`, {
                 method: "POST",
                 headers: {
                     "Accept": 'application/json',
                     "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({
-                    Code: code.current.value
                 }
-            )});
+            });
             const status = response.status;
             if (errors[status]) {
                 errorMsg.current.textContent = errors[status];
