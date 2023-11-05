@@ -1,14 +1,16 @@
 import '../../styles/profile/profile.sass';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import ProfileIcon from '../../components/ProfileIcon/ProfileIcon';
 import ProfileInput from '../../components/ProfileInput/ProfileInput';
+import CustomBtn from '../../components/CustomBtn/CustomBtn';
+import ProfileTextArea from '../../components/ProfileTextArea/ProfileTextArea';
 
 function Profile() {
     useEffect(() => {
         getUserData();
-    }, )
+    }, [])
     async function getUserData() {
-        try{
+        try {
             const response = await fetch("https://localhost:7110/api/User/GetCurrentUser", {
                 method: "GET",
                 headers: {
@@ -18,18 +20,19 @@ function Profile() {
             })
             console.log(response.body);
             return response.body;
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             return null;
         }
     }
+
     return <>
         <div className="profile-container">
             <div className="profile-leftbox">
                 <nav>
-                    <ProfileIcon 
-                        id="profile-profile" 
-                        imgSrc="src/img/profile-human.svg" 
+                    <ProfileIcon
+                        id="profile-profile"
+                        imgSrc="src/img/profile-human.svg"
                         imgClass="profile-fa profile-fa-user"
                     />
                     <ProfileIcon
@@ -70,19 +73,17 @@ function Profile() {
                     <ul>
                         <li>
                             <div className="profile-block profile-contructor-block">
-                                <p>Title: <input
-                                    placeholder="Title"
-                                />
-                                </p>
-                                
+                                <p>Title: <ProfileTextArea textareaPlaceholder="Title"/></p>
                             </div>
                             <div className="profile-block profile-contructor-block">
-                                <p>Comment: <input
-                                    placeholder="Comment"
-                                />
-                                </p>
-                                
+                                <p>Description: <ProfileTextArea textareaPlaceholder="Description"/></p>
                             </div>
+                            <div className="profile-block profile-contructor-block">
+                                <p>Comment: <ProfileTextArea textareaPlaceholder="Comment"/></p>
+                            </div>
+                        </li>
+                        <li>
+                            <CustomBtn buttonText="Add Post"/>
                         </li>
                     </ul>
                 </div>
