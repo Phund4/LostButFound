@@ -11,7 +11,7 @@ function Login() {
     let password = useRef(null);
     let errorMsg = useRef(null);
     const errors = {
-        400: "This user already exists",
+        400: "Incorrect login or password",
         404: "Something went wrong...",
         500: "Server error"
     }
