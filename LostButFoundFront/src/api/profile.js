@@ -9,9 +9,7 @@ export async function getUserData() {
                 "Authorization": `Bearer ${token}`
             }
         })
-        const result = await response.json();
-        console.log(result);
-        return result;
+        return response.json();
     } catch (error) {
         console.log(error);
         return null;

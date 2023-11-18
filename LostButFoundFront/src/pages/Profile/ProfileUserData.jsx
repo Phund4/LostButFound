@@ -7,11 +7,12 @@ function ProfileUserData() {
     const [email, setEmail] = useState("");
     const [rating, setRating] = useState(0);
     useEffect(() => {
-        const data = getUserData();
-        setFullname(data.fullname);
-        setLogin(data.login);
-        setEmail(data.email);
-        setRating(data.rating);
+        getUserData().then(result => {
+            setFullname(result.fullName);
+            setLogin(result.login);
+            setEmail(result.email);
+            setRating(result.rating);
+        });
     }, [])
     return (
         <div className="profile-profile profile-rightbox-child">

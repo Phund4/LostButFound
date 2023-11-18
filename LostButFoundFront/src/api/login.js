@@ -16,20 +16,18 @@ async function sendLoginData(loginOrEmail, password) {
                 loginOrEmail: loginOrEmail,
                 Password: password
             }
-        )}).then((response) => {
-            const token = response.json();
-            console.log(token);
-            localStorage.setItem("token", token);
-        });
+        )})
         const result = await response.json();
-        console.log(result);
-        const status = result.status;
-        if (errors[status]) {
-            return errors[status];
+        if (result == "Пользователь не найден") {
+            return errors[404];
         } else {
+            localStorage.setItem('token', result);
             return 'Done';
         }
+        
+        
     } catch (error) {
+        console.log(error);
         return errors[500];
     }
 }
