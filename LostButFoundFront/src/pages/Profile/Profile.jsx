@@ -8,7 +8,22 @@ import ProfileTextArea from '../../components/ProfileTextArea/ProfileTextArea';
 function Profile() {
     useEffect(() => {
         getUserData();
+        getListOfCities();
     }, [])
+
+    async function getListOfCities() {
+        try{
+            const url = "https://kladr-api.ru/api.php?token=8hz5K4HRSydSFGNzYinFea5DikkNn78E"
+            const response = await fetch(url, {
+                method: "GET",
+                mode: 'no-cors'
+            })
+            console.log(response.body);
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     async function getUserData() {
         try {
             const response = await fetch("https://localhost:7110/api/User/GetCurrentUser", {
@@ -18,10 +33,10 @@ function Profile() {
                     "Content-Type": 'application/json'
                 }
             })
-            console.log(response.body);
+            
             return response.body;
         } catch (error) {
-            console.log(error);
+            
             return null;
         }
     }
@@ -70,22 +85,48 @@ function Profile() {
                 </div>
                 <div className="profile-constructor profile-rightbox-child hide">
                     <h1>Add post</h1>
-                    <ul>
-                        <li>
-                            <div className="profile-block profile-contructor-block">
-                                <p>Title: <ProfileTextArea textareaPlaceholder="Title"/></p>
-                            </div>
-                            <div className="profile-block profile-contructor-block">
-                                <p>Description: <ProfileTextArea textareaPlaceholder="Description"/></p>
-                            </div>
-                            <div className="profile-block profile-contructor-block">
-                                <p>Comment: <ProfileTextArea textareaPlaceholder="Comment"/></p>
-                            </div>
-                        </li>
-                        <li>
-                            <CustomBtn buttonText="Add Post"/>
-                        </li>
-                    </ul>
+                    <div className='profile-constructor-checks hide'>
+                        <ul>
+                            <li>
+                                <div className="profile-block profile-constructor-block">
+
+                                </div>
+                            </li>
+                            <li>
+                                <CustomBtn buttonText="Next" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="profile-constructor-inputs">
+                        <ul>
+                            <li>
+                                <div className="profile-block profile-contructor-block">
+                                    <p>Title: <ProfileTextArea
+                                        textareaPlaceholder="Title"
+                                        rows={1}
+                                        maxLength={20}
+                                    /></p>
+                                </div>
+                                <div className="profile-block profile-contructor-block">
+                                    <p>Description: <ProfileTextArea
+                                        textareaPlaceholder="Description"
+                                        rows={3}
+                                        maxLength={50}
+                                    /></p>
+                                </div>
+                                <div className="profile-block profile-contructor-block">
+                                    <p>Comment: <ProfileTextArea
+                                        textareaPlaceholder="Comment"
+                                        rows={3}
+                                        maxLength={50}
+                                    /></p>
+                                </div>
+                            </li>
+                            <li>
+                                <CustomBtn buttonText="Add Post" />
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

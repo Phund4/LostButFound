@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import {useEffect, useRef, useState} from 'react'
-import "./mytimer.sass"
+import "./codetimer.sass"
 
-function MyTimer(props) {
+function CodeTimer(props) {
     let timer = useRef(null);
     let timerText = <><span id="time" ref={timer}>{props?.duration}</span> seconds left!</>;
     let [timerState, setTimerState] = useState(timerText);
@@ -63,4 +63,4 @@ function MyTimer(props) {
     )
 }
 
-export default MyTimer;
+export default CodeTimer;

@@ -4,7 +4,7 @@ import './custombtn.sass'
 
 function CustomBtn(props) {
     return (
-        <button className="custom-btn btn-4"><span>{props.buttonText}</span></button>
+        <button className={`custom-btn btn-4 ${props.className}`}><span>{props.buttonText}</span></button>
     )
 }
 

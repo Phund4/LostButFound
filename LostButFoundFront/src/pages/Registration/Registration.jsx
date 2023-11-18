@@ -1,79 +1,77 @@
-import "../../components/MyForm/MyForm"
-import MyForm from "../../components/MyForm/MyForm";
-import MyInput from "../../components/MyInput/MyInput";
-import MyFormButton from "../../components/MyFormButton/MyFormButton";
-import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import FormInputAuthorize from '../../components/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../../components/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../../components/FormAuthorize/FormAuthorize'
+import sendRegistrationData from '../../api/register';
 
-function Registration() {
+const validate = values => {
+    const errors = {};
+    const re = /^[\w]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;
+
+    if (!values.fullname || values.fullname.length < 6 ||
+        !values.login || values.login.length < 6 ||
+        !values.email || !re.test(values.email) ||
+        !values.password || values.password.length < 6 ||
+        values.repeatPassword !== values.password) {
+        errors.fullname = 'Incorrect form';
+    }
+
+    return errors;
+};
+
+const Registration = () => {
     const navigate = useNavigate();
-    let fullname = useRef(null);
-    let login = useRef(null);
-    let email = useRef(null);
-    let password = useRef(null);
-    let repeatPassword = useRef(null);
-    let errorMsg = useRef(null);
-    const errors = {
-        400: "This user already exists",
-        404: "Something went wrong...",
-        500: "Server error"
-    }
-
-    async function sendRegistrationData() {
-        let inputs = [fullname.current, login.current, email.current, password.current, repeatPassword.current];
-        for (let i=0; i<inputs.length; i++) {
-            let el = inputs[i];
-            if (el.classList.contains('incorrect-value') || el.value == "") return;
-        }
-        try {
-            const response = await fetch("https://localhost:7110/api/User/Register", {
-                method: "POST",
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({
-                    FullName: fullname.current.value,
-                    Login: login.current.value,
-                    Email: email.current.value,
-                    Password: password.current.value
+    const formik = useFormik({
+        initialValues: {
+            fullname: '',
+            login: '',
+            email: '',
+            password: '',
+            repeatPassword: ''
+        },
+        validate,
+        onSubmit: values => {
+            const msg = sendRegistrationData(values.fullname, values.login, values.email, values.password);
+            msg.then(response => {
+                if (response == 'Done') {
+                    navigate('/login');
+                } else {
+                    document.getElementById('registration-status-error').textContent = response;
                 }
-            )});
-            const status = response.status;
-            if (errors[status]) {
-                errorMsg.current.textContent = errors[status];
-            } else {
-                navigate("/confirmemail");
-            }
-        } catch (error) {
-            errorMsg.current.textContent = errors[500];
-        }
-    }
+            })
+        },
+    });
 
-    const fullnameInput = <MyInput
+    const fullname = <FormInputAuthorize
         type="text"
+        name="fullname"
         placeholder="Enter FullName"
         id="registration-input-fullname"
         messageId="registration-input-fullname-message-error"
         key="registration-input-fullname"
         isValidInput={value => value.length >= 6}
         messageError="The fullname must be at least 6 characters long"
-        refInput={fullname}
+        onChange={formik.handleChange}
+        value={formik.values.fullname}
     />
 
-    const loginInput = <MyInput
+    const login = <FormInputAuthorize
         type="text"
+        name="login"
         placeholder="Enter Login"
         id="registration-input-login"
         messageId="registration-input-login-message-error"
         key="registration-input-login"
         isValidInput={value => value.length >= 6}
         messageError="The login must be at least 6 characters long"
-        refInput={login}
+        onChange={formik.handleChange}
+        value={formik.values.login}
     />
-    
-    const emailInput = <MyInput
+
+    const email = <FormInputAuthorize
         type="email"
+        name="email"
         placeholder="Enter Email"
         id="registration-input-email"
         messageId="registration-input-email-message-error"
@@ -83,22 +81,26 @@ function Registration() {
             return re.test(value);
         }}
         messageError="Uncorrect email"
-        refInput={email}
+        onChange={formik.handleChange}
+        value={formik.values.email}
     />
 
-    const passwordInput = <MyInput
+    const password = <FormInputAuthorize
         type="password"
+        name="password"
         placeholder="Enter Password"
         id="registration-input-password"
         messageId="registration-input-password-message-error"
         key="registration-input-password"
         isValidInput={value => value.length >= 6}
         messageError="The password must be at least 6 characters long"
-        refInput={password}
+        onChange={formik.handleChange}
+        value={formik.values.password}
     />
 
-    const repeatPasswordInput = <MyInput
+    const repeatPassword = <FormInputAuthorize
         type="password"
+        name="repeatPassword"
         placeholder="Repeat Password"
         id="registration-input-repeat-password"
         messageId="registration-input-repeat-password-message-error"
@@ -108,16 +110,11 @@ function Registration() {
             return password == value;
         }}
         messageError="The entered password is not identical"
-        refInput={repeatPassword}
+        onChange={formik.handleChange}
+        value={formik.values.repeatPassword}
     />
 
-    const messageError = <p
-        id="registration-status-error"
-        key="registration-status-error"
-        ref={errorMsg}
-    />
-
-    const buttonLink = <p
+    const linkToLogin = <p
         className="link-to-login"
         onClick={() => navigate("/login")}
         key="link-to-login"
@@ -125,19 +122,24 @@ function Registration() {
         I am already registered
     </p>
 
-    const regButton = <MyFormButton
+    const messageError = <p
+        id='registration-status-error'
+        key='registration-status-error'
+    />
+
+    const submitButton = <FormButtonAuthorize
+        type="submit"
         buttonText="Sign Up"
-        handleClick={sendRegistrationData}
         key="signUpButton"
     />
 
     return (
-        <>
-            <MyForm
-                headerText="Register Form"
-                childrens={[fullnameInput, loginInput, emailInput, passwordInput, repeatPasswordInput, messageError, buttonLink, regButton]}
-            />
-        </>
+        <FormAuthorize
+            headerText="Register Form"
+            onSubmit={formik.handleSubmit}
+            childrens={[fullname, login, email, password, repeatPassword, linkToLogin, messageError, submitButton]}
+        />
+        
     )
 }
 

@@ -1,77 +1,73 @@
-import MyForm from "../../components/MyForm/MyForm";
-import MyInput from "../../components/MyInput/MyInput";
-import MyFormButton from "../../components/MyFormButton/MyFormButton";
-import MyTimer from "../../components/MyTimer/MyTimer";
-import { useRef } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import FormInputAuthorize from '../../components/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../../components/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../../components/FormAuthorize/FormAuthorize'
+import sendCode from '../../api/sendCode';
 
-function ConfirmEmail() {
+const validate = values => {
+    const errors = {};
+    if (!values.code) {
+        errors.fullname = 'Incorrect form';
+    }
+    return errors;
+};
+
+
+const ConfirmEmail = () => {
     const navigate = useNavigate();
-    let code = useRef(null);
-    let errorMsg = useRef(null);
-    let timerText = useRef(null);
-    const errors = {
-        400: "Incorrect Code",
-        404: "Something went wrong...",
-        500: "Server error"
-    }
-
-    async function sendCode() {
-        try {
-            const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code.current.value}`, {
-                method: "POST",
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
+    const formik = useFormik({
+        initialValues: {
+            code: ''
+        },
+        validate,
+        onSubmit: values => {
+            const msg = sendCode(values.code);
+            msg.then(response => {
+                if (response == 'Done') {
+                    navigate('/login');
+                } else {
+                    document.getElementById('confirmemail-status-error').textContent = response;
                 }
-            });
-            const status = response.status;
-            if (errors[status]) {
-                errorMsg.current.textContent = errors[status];
-            } else {
-                navigate("/login");
-            }
-        } catch (error) {
-            errorMsg.current.textContent = errors[500];
-        }
-    }
+            })
+        },
+    });
 
-    const confirmCodeInput = <MyInput
+    const confirmCode = <FormInputAuthorize
         type="password"
+        name="code"
         placeholder="Enter Code"
         id="confirm-email-input-code"
         messageId="confirm-email-input-code-message-error"
         key="confirm-email-input-code"
         isValidInput={() => true}
         messageError="Invalid Code"
-        refInput={code}
-    />
-
-    const confirmEmail = <MyFormButton
-        buttonText="Send Code"
-        handleClick={sendCode}
-        key="sendCodeButton"
+        onChange={formik.handleChange}
+        value={formik.values.code}
     />
 
     const messageError = <p
-        id="confirmemail-status-error"
-        key="confirmemail-status-error"
-        ref={errorMsg}
+        id='confirmemail-status-error'
+        key='confirmemail-status-error'
     />
 
-    const confirmEmailTimer = <MyTimer
-        duration={5}
-        key="confirm-email-timer"
-        timerRef={timerText}
+    const submitButton = <FormButtonAuthorize
+        type="submit"
+        buttonText="Send Code"
+        key="sendCodeButton"
     />
+
+    // const timer = <MyTimer
+    //     duration={5}
+    //     key="confirm-email-timer"
+    // />
 
     return (
-        <>
-            <MyForm
-                headerText="Confirm Email"
-                childrens={[confirmCodeInput, messageError, confirmEmail, confirmEmailTimer]}
-            />
-        </>
+        <FormAuthorize
+            headerText="Register Form"
+            onSubmit={formik.handleSubmit}
+            childrens={[confirmCode, messageError, submitButton]}
+        />
     )
 }
 

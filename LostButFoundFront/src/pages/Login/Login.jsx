@@ -1,79 +1,65 @@
-import "../../components/MyForm/MyForm"
-import MyForm from "../../components/MyForm/MyForm";
-import MyInput from "../../components/MyInput/MyInput";
-import MyFormButton from "../../components/MyFormButton/MyFormButton";
-import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import FormInputAuthorize from '../../components/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../../components/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../../components/FormAuthorize/FormAuthorize'
+import sendLoginData from '../../api/login';
 
-function Login() {
+const validate = values => {
+    const errors = {};
+    if (!values.loginOrEmail || !values.password || values.password.length < 6) {
+        errors.fullname = 'Incorrect form';
+    }
+    return errors;
+};
+
+const Login = () => {
     const navigate = useNavigate();
-    let loginOrEmail = useRef(null);
-    let password = useRef(null);
-    let errorMsg = useRef(null);
-    const errors = {
-        400: "Incorrect login or password",
-        404: "Something went wrong...",
-        500: "Server error"
-    }
-
-    async function sendLoginData() {
-        let inputs = [loginOrEmail.current, password.current];
-        for (let i=0; i<inputs.length; i++) {
-            let el = inputs[i];
-            if (el.classList.contains('incorrect-value') || el.value == "") return;
-        }
-        try {
-            const response = await fetch("https://localhost:7110/api/User/Login", {
-                method: "POST",
-                headers: {
-                    "Accept": 'application/json',
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({
-                    loginOrEmail: loginOrEmail.current.value,
-                    Password: password.current.value
+    const formik = useFormik({
+        initialValues: {
+            loginOrEmail: '',
+            password: ''
+        },
+        validate,
+        onSubmit: values => {
+            const msg = sendLoginData(values.loginOrEmail, values.password);
+            msg?.then(response => {
+                if (response == 'Done') {
+                    navigate('/profile');
+                } else {
+                    document.getElementById('login-status-error').textContent = response;
                 }
-            )});
-            const status = response.status;
-            if (errors[status]) {
-                errorMsg.current.textContent = errors[status];
-            } else {
-                navigate("/myprofile");
-            }
-        } catch (error) {
-            errorMsg.current.textContent = errors[500];
-        }
-    }
+            })
+        },
+    });
 
-    const loginOrEmailInput = <MyInput
+    const loginOrEmail = <FormInputAuthorize
         type="text"
+        name="loginOrEmail"
         placeholder="Enter Login or Email"
         id="login-input-loginoremail"
         messageId="login-input-loginoremail-message-error"
         key="login-input-loginoremail"
         isValidInput={() => true}
         messageError="Incorrect field"
-        refInput={loginOrEmail}
+        onChange={formik.handleChange}
+        value={formik.values.loginOrEmail}
     />
 
-    const passwordInput = <MyInput
+    const password = <FormInputAuthorize
         type="password"
+        name="password"
         placeholder="Enter Password"
         id="login-input-password"
         messageId="login-input-password-message-error"
         key="login-input-password"
         isValidInput={value => value.length >= 6}
         messageError="The password must be at least 6 characters long"
-        refInput={password}
+        onChange={formik.handleChange}
+        value={formik.values.password}
     />
 
-    const messageError = <p
-        id="login-status-error"
-        key="login-status-error"
-        ref={errorMsg}
-    />
-
-    const buttonLink = <p
+    const linkToRegistration = <p
         className="link-to-registration"
         onClick={() => navigate("/registration")}
         key="link-to-registration"
@@ -81,19 +67,23 @@ function Login() {
         I am not registered
     </p>
 
-    const regButton = <MyFormButton
+    const messageError = <p
+        id='login-status-error'
+        key='login-status-error'
+    />
+
+    const submitButton = <FormButtonAuthorize
+        type="submit"
         buttonText="Login Up"
-        handleClick={sendLoginData}
         key="LoginUpButton"
     />
 
     return (
-        <>
-            <MyForm
-                headerText="Login Form"
-                childrens={[loginOrEmailInput, passwordInput, messageError, buttonLink, regButton]}
-            />
-        </>
+        <FormAuthorize
+            headerText="Register Form"
+            onSubmit={formik.handleSubmit}
+            childrens={[loginOrEmail, password, linkToRegistration, messageError, submitButton]}
+        />
     )
 }
 
