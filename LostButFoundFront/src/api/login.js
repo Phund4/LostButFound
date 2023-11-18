@@ -16,12 +16,18 @@ async function sendLoginData(loginOrEmail, password) {
                 loginOrEmail: loginOrEmail,
                 Password: password
             }
-        )});
-        const status = response.status;
+        )}).then((response) => {
+            const token = response.data;
+            console.log(token);
+            localStorage.setItem("token", token);
+        });
+        const result = await response.json();
+        console.log(result);
+        const status = result.status;
         if (errors[status]) {
             return errors[status];
         } else {
-            return 'Done'
+            return 'Done';
         }
     } catch (error) {
         return errors[500];

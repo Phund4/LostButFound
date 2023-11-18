@@ -1,42 +1,38 @@
 import '../../styles/profile/profile.sass';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileIcon from '../../components/ProfileIcon/ProfileIcon';
 import ProfileInput from '../../components/ProfileInput/ProfileInput';
 import CustomBtn from '../../components/CustomBtn/CustomBtn';
 import ProfileTextArea from '../../components/ProfileTextArea/ProfileTextArea';
 
 function Profile() {
+    const [fullname, setFullname] = useState("");
+    const [login, setLogin] = useState("");
+    const [email, setEmail] = useState("");
+    const [rating, setRating] = useState(0);
     useEffect(() => {
-        getUserData();
-        getListOfCities();
+        const data = getUserData();
+        setFullname(data.fullname);
+        setLogin(data.login);
+        setEmail(data.email);
+        setRating(data.rating);
     }, [])
-
-    async function getListOfCities() {
-        try{
-            const url = "https://kladr-api.ru/api.php?token=8hz5K4HRSydSFGNzYinFea5DikkNn78E"
-            const response = await fetch(url, {
-                method: "GET",
-                mode: 'no-cors'
-            })
-            console.log(response.body);
-        } catch(e) {
-            console.log(e);
-        }
-    }
 
     async function getUserData() {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch("https://localhost:7110/api/User/GetCurrentUser", {
                 method: "GET",
                 headers: {
                     "Accept": 'application/json',
-                    "Content-Type": 'application/json'
+                    "Content-Type": 'application/json',
+                    "Authorization": `Bearer ${token}`
                 }
             })
-            
-            return response.body;
+            const result = await response.json();
+            console.log(result);
+            return result;
         } catch (error) {
-            
             return null;
         }
     }
@@ -62,22 +58,22 @@ function Profile() {
                     <h1>Personal Info</h1>
                     <ul>
                         <ProfileInput
-                            data="Full Name"
+                            data={fullname}
                             textHead="Full Name"
                             isNeedButton={true}
                         />
                         <ProfileInput
-                            data="Login"
+                            data={login}
                             textHead="Login"
                             isNeedButton={true}
                         />
                         <ProfileInput
-                            data="Email"
+                            data={email}
                             textHead="Email"
                             isNeedButton={false}
                         />
                         <ProfileInput
-                            data="Rating"
+                            data={rating}
                             textHead="Rating"
                             isNeedButton={false}
                         />

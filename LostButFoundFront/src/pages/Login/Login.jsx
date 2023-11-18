@@ -25,7 +25,7 @@ const Login = () => {
             const msg = sendLoginData(values.loginOrEmail, values.password);
             msg?.then(response => {
                 if (response == 'Done') {
-                    navigate('/profile');
+                    navigate('/myprofile');
                 } else {
                     document.getElementById('login-status-error').textContent = response;
                 }
