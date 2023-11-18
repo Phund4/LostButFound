@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import './custombtn.sass'
+import './profile-custom-button.sass'
 
-function CustomBtn(props) {
+function ProfileCustomButton(props) {
     return (
         <button className={`custom-btn btn-4 ${props.className}`}><span>{props.buttonText}</span></button>
     )
 }
 
-export default CustomBtn;
+export default ProfileCustomButton;

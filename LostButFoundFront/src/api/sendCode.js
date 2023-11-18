@@ -6,7 +6,7 @@ const errors = {
 
 async function sendCode(code) {
     try {
-        const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code}`, {
+        const response = await fetch(`https://192.168.31.71:7110/api/User/ConfirmRegister?code=${code}`, {
             method: "POST",
             headers: {
                 "Accept": 'application/json',

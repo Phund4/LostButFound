@@ -6,7 +6,7 @@ const errors = {
 
 async function sendRegistrationData(fullname, login, email, password) {
     try {
-        const response = await fetch("https://localhost:7110/api/User/Register", {
+        const response = await fetch("https://192.168.31.71:7110/api/User/Register", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',

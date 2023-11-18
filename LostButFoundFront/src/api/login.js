@@ -6,7 +6,7 @@ const errors = {
 
 async function sendLoginData(loginOrEmail, password) {
     try {
-        const response = await fetch("https://localhost:7110/api/User/Login", {
+        const response = await fetch("https://192.168.31.71:7110/api/User/Login", {
             method: "POST",
             headers: {
                 "Accept": 'application/json',
@@ -17,7 +17,7 @@ async function sendLoginData(loginOrEmail, password) {
                 Password: password
             }
         )}).then((response) => {
-            const token = response.data;
+            const token = response.json();
             console.log(token);
             localStorage.setItem("token", token);
         });
