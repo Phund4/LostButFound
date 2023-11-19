@@ -15,6 +15,8 @@ function ProfileTextArea(props) {
             rows={props.rows}
             maxLength={props.maxLength}
             onKeyDown={() => keyDownHandler()}
+            onChange={props.onChange}
+            name={props.name}
         />
     )
 }

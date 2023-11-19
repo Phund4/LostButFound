@@ -11,7 +11,10 @@ export async function getUserData() {
         })
         return response.json();
     } catch (error) {
-        console.log(error);
         return null;
     }
+}
+
+export async function getAddress() {
+    
 }
