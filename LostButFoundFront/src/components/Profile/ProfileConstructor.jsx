@@ -2,7 +2,8 @@ import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
 import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
 import ProfileInput from './ProfileInput/ProfileInput';
 import { useFormik } from 'formik'
-import { getTags, hideTags, addPost } from './helpers';
+import { getTags, hideTags } from './helpers';
+import { addPost } from '../../api/profile'
 
 const validate = values => {
     const errors = {};
