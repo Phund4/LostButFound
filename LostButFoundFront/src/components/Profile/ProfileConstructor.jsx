@@ -1,8 +1,7 @@
-import ProfileCustomButton from '../../components/ProfileCustomButton/ProfileCustomButton';
-import ProfileTextArea from '../../components/ProfileTextArea/ProfileTextArea';
+import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
+import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
 import {useFormik} from 'formik'
 import { getAddress } from '../../api/profile';
-import { toAdditional } from './helpers';
 
 const validate = values => {
     const errors = {};
@@ -15,7 +14,7 @@ const validate = values => {
 };
 
 
-function ProfileConstructorInfo() {
+function ProfileConstructor() {
     const formik = useFormik({
         initialValues: {
             address: "",
@@ -35,7 +34,7 @@ function ProfileConstructorInfo() {
     return (
         <>
             <div className="profile-constructor profile-rightbox-child hide">
-                <h1>Address</h1>
+                <h1>Add Post</h1>
                 <ul>
                     <li>
                         <div className="profile-block profile-contructor-block">
@@ -50,13 +49,8 @@ function ProfileConstructorInfo() {
                         </div>
                     </li>
                     <li>
-                        <ProfileCustomButton headerClick={toAdditional} buttonText="Next" />
+                        <ProfileCustomButton buttonText="Add Location" />
                     </li>
-                </ul>
-            </div>
-            <div className="profile-constructor-additional profile-rightbox-child hide">
-                <h1>Additional Info</h1>
-                <ul>
                     <li>
                         <div className="profile-block profile-contructor-block">
                             <p>Title: <ProfileTextArea
@@ -88,6 +82,12 @@ function ProfileConstructorInfo() {
                                 value={formik.comment}
                             /></p>
                         </div>
+                        <div className="profile-block profile-contructor-block">
+                            <p>Add Image:<input
+                                type="file"
+                            />
+                            </p>
+                        </div>
                     </li>
                     <li>
                         <ProfileCustomButton buttonText="Add Post" />
@@ -99,4 +99,4 @@ function ProfileConstructorInfo() {
     )
 }
 
-export default ProfileConstructorInfo;
+export default ProfileConstructor;

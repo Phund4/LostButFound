@@ -1,8 +1,8 @@
 import '../../styles/profile/profile.sass';
-import ProfileUserData from './ProfileUserData';
-import ProfileLeftbox from './ProfileLeftbox';
-import ProfileConstructorInfo from './ProfileConstructorInfo';
-
+import ProfileUserData from '../../components/Profile/ProfileUserData';
+import ProfileLeftbox from '../../components/Profile/ProfileLeftbox';
+import ProfileConstructor from '../../components/Profile/ProfileConstructor';
+import ProfilePosts from '../../components/Profile/ProfilePosts';
 
 function Profile() {
     return <>
@@ -12,7 +12,8 @@ function Profile() {
             </div>
             <div className="profile-rightbox">
                 <ProfileUserData/>
-                <ProfileConstructorInfo/>
+                <ProfileConstructor/>
+                <ProfilePosts/>
             </div>
         </div>
     </>

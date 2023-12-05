@@ -1,4 +1,4 @@
-import ProfileInput from '../../components/ProfileInput/ProfileInput';
+import ProfileInput from './ProfileInput/ProfileInput';
 import { useEffect, useState } from 'react';
 import { getUserData } from '../../api/profile';
 function ProfileUserData() {
@@ -21,7 +21,7 @@ function ProfileUserData() {
                 <ProfileInput
                     data={fullname}
                     textHead="Full Name"
-                    isNeedButton={true}
+                    isNeedButton={false}
                 />
                 <ProfileInput
                     data={login}

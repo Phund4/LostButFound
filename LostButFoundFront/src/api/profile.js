@@ -1,6 +1,9 @@
 export async function getUserData() {
     try {
         const token = localStorage.getItem('token');
+        // if (!!token == false) {
+        //     document.location.href = '/login'
+        // }
         const response = await fetch("https://localhost:7110/api/User/GetCurrentUser", {
             method: "GET",
             headers: {
