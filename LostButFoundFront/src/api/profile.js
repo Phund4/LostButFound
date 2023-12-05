@@ -33,3 +33,17 @@ export async function getAddress(address) {
         console.log(error);
     }
 }
+
+export async function addPost(values) {
+    console.log(values);
+    // const url = "https://localhost:7110/api/Thing/AddPost";
+    // const response = await fetch(url, {
+    //     method: "POST",
+    //     headers: {
+    //         "Accept": 'application/json',
+    //         "Content-Type": 'application/json'
+    //     },
+    //     body: {}
+    // })
+    // return await response.json();
+}

@@ -2,12 +2,14 @@ import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
 import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
 import ProfileInput from './ProfileInput/ProfileInput';
 import { useFormik } from 'formik'
-import { getTags } from './helpers';
+import { getTags, hideTags, addPost } from './helpers';
 
 const validate = values => {
     const errors = {};
     if (!values.address || !values.title ||
-        !values.description || !values.comment) {
+        !values.description || !values.comment ||
+        !values.tags.city || !values.tags.district ||
+        !values.tags.street) {
         errors.address = 'Incorrect form';
     }
     return errors;
@@ -26,15 +28,14 @@ function ProfileConstructor() {
             },
             title: "",
             description: "",
-            comment: ""
+            comment: "",
+            file: new File([], '')
         },
         validate,
-        // onSubmit: values => {
-        //     const msg = getAddress(values.address);
-        //     msg.then(response => {
-        //         console.log(values, response);
-        //     })
-        // },
+        onSubmit: values => {
+            const result = addPost(values);
+            console.log(result);
+        },
     });
 
     return (
@@ -77,7 +78,10 @@ function ProfileConstructor() {
                         />
                     </div>
                     <li>
-                        <ProfileCustomButton buttonText="Add Location" handleClick={() => getTags(formik.values)} />
+                        <ProfileCustomButton className="constructor-button-location" buttonText="Add Location" handleClick={() => getTags(formik)} />
+                    </li>
+                    <li>
+                        <ProfileCustomButton className="constructor-button-retry hide" buttonText="Retry" handleClick={() => hideTags(formik)} />
                     </li>
                     <li>
                         <div className="profile-block profile-contructor-block">
@@ -113,12 +117,15 @@ function ProfileConstructor() {
                         <div className="profile-block profile-contructor-block">
                             <p>Add Image:<input
                                 type="file"
+                                name='file'
+                                onChange={formik.handleChange}
+                                value={formik.file}
                             />
                             </p>
                         </div>
                     </li>
                     <li>
-                        <ProfileCustomButton buttonText="Add Post" />
+                        <ProfileCustomButton type="submit" buttonText="Add Post"/>
                     </li>
                 </ul>
             </div>
