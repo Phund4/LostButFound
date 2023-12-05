@@ -22,7 +22,7 @@ function ProfileConstructor() {
                 city: "",
                 district: "",
                 street: "",
-                metro: ""
+                metro: []
             },
             title: "",
             description: "",
