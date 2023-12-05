@@ -20,15 +20,18 @@ export async function getUserData() {
 
 export async function getAddress(address) {
     const url = "https://localhost:7110/api/Thing/EditData";
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Accept": 'application/json',
-            "Content-Type": 'application/json'
-        },
-        body: JSON.stringify({
-            address: address
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                data: address
+            })
         })
-    })
-    return response;
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
 }

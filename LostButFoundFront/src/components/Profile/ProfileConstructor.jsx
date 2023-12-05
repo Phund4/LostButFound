@@ -2,7 +2,7 @@ import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
 import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
 import ProfileInput from './ProfileInput/ProfileInput';
 import { useFormik } from 'formik'
-import { getAddress } from '../../api/profile';
+import { getTags } from './helpers';
 
 const validate = values => {
     const errors = {};
@@ -77,7 +77,7 @@ function ProfileConstructor() {
                         />
                     </div>
                     <li>
-                        <ProfileCustomButton buttonText="Add Location" handleClick={() => getAddress(formik.values)} />
+                        <ProfileCustomButton buttonText="Add Location" handleClick={() => getTags(formik.values)} />
                     </li>
                     <li>
                         <div className="profile-block profile-contructor-block">
