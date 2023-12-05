@@ -18,6 +18,17 @@ export async function getUserData() {
     }
 }
 
-export async function getAddress() {
-    
+export async function getAddress(address) {
+    const url = "https://localhost:7110/api/Thing/EditData";
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+            address: address
+        })
+    })
+    return response;
 }

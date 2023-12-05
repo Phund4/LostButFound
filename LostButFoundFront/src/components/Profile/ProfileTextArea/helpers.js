@@ -8,9 +8,3 @@ export function prettyTextArea() {
         this.style.height = (this.scrollHeight) + 'px';
     }
 }
-
-export function keyDownHandler(e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
-    }
-}

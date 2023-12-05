@@ -1,13 +1,13 @@
 import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
 import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
-import {useFormik} from 'formik'
+import ProfileInput from './ProfileInput/ProfileInput';
+import { useFormik } from 'formik'
 import { getAddress } from '../../api/profile';
 
 const validate = values => {
     const errors = {};
-    if (!values.address || !values.title || 
-        !values.description || !values.comment) 
-    {
+    if (!values.address || !values.title ||
+        !values.description || !values.comment) {
         errors.address = 'Incorrect form';
     }
     return errors;
@@ -18,17 +18,23 @@ function ProfileConstructor() {
     const formik = useFormik({
         initialValues: {
             address: "",
+            tags: {
+                city: "",
+                district: "",
+                street: "",
+                metro: ""
+            },
             title: "",
             description: "",
             comment: ""
         },
         validate,
-        onSubmit: values => {
-            const msg = getAddress();
-            msg.then(response => {
-                console.log(values, response);
-            })
-        },
+        // onSubmit: values => {
+        //     const msg = getAddress(values.address);
+        //     msg.then(response => {
+        //         console.log(values, response);
+        //     })
+        // },
     });
 
     return (
@@ -37,7 +43,7 @@ function ProfileConstructor() {
                 <h1>Add Post</h1>
                 <ul>
                     <li>
-                        <div className="profile-block profile-contructor-block">
+                        <div className="profile-block profile-contructor-block profile-constructor-address">
                             <p>Enter Address: <ProfileTextArea
                                 textareaPlaceholder="Address"
                                 name="address"
@@ -48,8 +54,30 @@ function ProfileConstructor() {
                             /></p>
                         </div>
                     </li>
+                    <div className="profile-block profile-contructor-block profile-constructor-tags hide">
+                        <ProfileInput
+                            data={formik.values.tags.city}
+                            textHead="City"
+                            isNeedButton={false}
+                        />
+                        <ProfileInput
+                            data={formik.values.tags.district}
+                            textHead="District"
+                            isNeedButton={false}
+                        />
+                        <ProfileInput
+                            data={formik.values.tags.street}
+                            textHead="Street"
+                            isNeedButton={false}
+                        />
+                        <ProfileInput
+                            data={formik.values.tags.metro}
+                            textHead="Metro"
+                            isNeedButton={false}
+                        />
+                    </div>
                     <li>
-                        <ProfileCustomButton buttonText="Add Location" />
+                        <ProfileCustomButton buttonText="Add Location" handleClick={() => getAddress(formik.values)} />
                     </li>
                     <li>
                         <div className="profile-block profile-contructor-block">
