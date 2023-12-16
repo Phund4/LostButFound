@@ -25,3 +25,12 @@ export function hideTags() {
     document.querySelector(".constructor-button-location").classList.remove('hide');
     document.querySelector(".constructor-button-retry").classList.add('hide');
 }
+
+export function handleFiles(e) {
+    var ctx = document.getElementById('constructor-canvas').getContext('2d');
+    var img = new Image;
+    img.src = URL.createObjectURL(e.target.files[0]);
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0, (img.width > img.height ? 400 : 300), (img.height > img.wigth ? 400 : 300));
+    }
+}

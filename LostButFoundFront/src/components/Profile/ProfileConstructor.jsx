@@ -2,7 +2,7 @@ import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
 import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
 import ProfileInput from './ProfileInput/ProfileInput';
 import { useFormik } from 'formik'
-import { getTags, hideTags } from './helpers';
+import { getTags, hideTags, handleFiles } from './helpers';
 import { addPost } from '../../api/profile'
 
 const validate = values => {
@@ -34,7 +34,6 @@ function ProfileConstructor() {
         },
         validate,
         onSubmit: values => {
-            console.log(values);
             addPost(values).then(response => {
                 console.log(response);
             });
@@ -118,13 +117,16 @@ function ProfileConstructor() {
                             /></p>
                         </div>
                         <div className="profile-block profile-contructor-block">
-                            <p>Add Image:<input
-                                type="file"
-                                name="file"
-                                onChange={formik.handleChange}
-                                value={formik.file}
-                            />
+                            <p>Add Image:
+                                <input
+                                    type="file"
+                                    name="file"
+                                    onChange={handleFiles}
+                                    value={formik.file}
+                                    
+                                />
                             </p>
+                            <canvas width="300" height="300" id="constructor-canvas"/>
                         </div>
                     </li>
                     <li>
