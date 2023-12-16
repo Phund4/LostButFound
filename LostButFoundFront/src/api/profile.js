@@ -36,20 +36,18 @@ export async function getAddress(address) {
 
 export async function addPost(values) {
     console.log(values);
-    let canvas = document.getElementById('constructor-canvas');
-    let dataURL = canvas.toDataURL();
-    let formdata = new FormData();
-    formdata.append('file', values.file);
+    // let canvas = document.getElementById('constructor-canvas');
+    // let dataURL = canvas.toDataURL();
+    // let formdata = new FormData();
+    // formdata.append('file', values.file);
     const url = `https://localhost:7110/api/Thing/AddPost?Name` + 
     `=${values.title}&Description=${values.description}&City=${values.tags.city}` + 
     `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Accept": 'application/json',
-            "Content-Type": 'application/json; multipart/form-data'
-        },
-        body: formdata
+            "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------"
+        }
     })
     
     return await response.json();
