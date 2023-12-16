@@ -37,7 +37,7 @@ export async function getAddress(address) {
 export async function addPost(values) {
     console.log(values);
     let canvas = document.getElementById('constructor-canvas');
-    let dataURL = canvas.toDataURL().split(',')[1];
+    let dataURL = canvas.toDataURL();
     const url = `https://localhost:7110/api/Thing/AddPost?Name` + 
     `=${values.title}&Description=${values.description}&City=${values.tags.city}` + 
     `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}` +
