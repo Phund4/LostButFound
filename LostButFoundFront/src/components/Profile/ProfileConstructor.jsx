@@ -11,7 +11,7 @@ const validate = values => {
         !values.description || !values.comment ||
         !values.tags.city || !values.tags.district ||
         !values.tags.street) {
-        errors.address = 'Incorrect form';
+        errors.form = 'Incorrect form';
     }
     return errors;
 };
@@ -34,14 +34,16 @@ function ProfileConstructor() {
         },
         validate,
         onSubmit: values => {
-            const result = addPost(values);
-            console.log(result);
+            console.log("HI");
+            addPost(values).then(response => {
+                console.log(response);
+            });
         },
     });
 
     return (
         <>
-            <div className="profile-constructor profile-rightbox-child hide">
+            <div className="profile-constructor profile-rightbox-child hide" onSubmit={formik.handleSubmit}>
                 <h1>Add Post</h1>
                 <ul>
                     <li>
@@ -100,7 +102,7 @@ function ProfileConstructor() {
                                 textareaPlaceholder="Description"
                                 name="description"
                                 rows={3}
-                                maxLength={70}
+                                maxLength={100}
                                 onChange={formik.handleChange}
                                 value={formik.description}
                             /></p>
@@ -110,7 +112,7 @@ function ProfileConstructor() {
                                 textareaPlaceholder="Comment"
                                 name="comment"
                                 rows={3}
-                                maxLength={70}
+                                maxLength={100}
                                 onChange={formik.handleChange}
                                 value={formik.comment}
                             /></p>
@@ -118,7 +120,7 @@ function ProfileConstructor() {
                         <div className="profile-block profile-contructor-block">
                             <p>Add Image:<input
                                 type="file"
-                                name='file'
+                                name="file"
                                 onChange={formik.handleChange}
                                 value={formik.file}
                             />
