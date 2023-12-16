@@ -4,7 +4,7 @@ import './profile-custom-button.sass'
 
 function ProfileCustomButton(props) {
     return (
-        <button onClick={props?.handleClick} type={props.type} className={`custom-btn btn-4 ${props.className}`}><span>{props.buttonText}</span></button>
+        <button onClick={props?.handleClick} onSubmit={props.handleSubmit} type={props.type} className={`custom-btn btn-4 ${props.className}`}><span>{props.buttonText}</span></button>
     )
 }
 

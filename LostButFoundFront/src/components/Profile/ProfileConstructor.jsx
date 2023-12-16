@@ -7,10 +7,10 @@ import { addPost } from '../../api/profile'
 
 const validate = values => {
     const errors = {};
-    if (!values.address || !values.title ||
+    if (!values.title ||
         !values.description || !values.comment ||
         !values.tags.city || !values.tags.district ||
-        !values.tags.street) {
+        !values.tags.street || !values.tags.metro) {
         errors.form = 'Incorrect form';
     }
     return errors;
@@ -34,7 +34,7 @@ function ProfileConstructor() {
         },
         validate,
         onSubmit: values => {
-            console.log("HI");
+            console.log(values);
             addPost(values).then(response => {
                 console.log(response);
             });
@@ -43,7 +43,7 @@ function ProfileConstructor() {
 
     return (
         <>
-            <div className="profile-constructor profile-rightbox-child hide" onSubmit={formik.handleSubmit}>
+            <form action="/" className="profile-constructor profile-rightbox-child hide" onSubmit={formik.handleSubmit}>
                 <h1>Add Post</h1>
                 <ul>
                     <li>
@@ -81,10 +81,10 @@ function ProfileConstructor() {
                         />
                     </div>
                     <li>
-                        <ProfileCustomButton className="constructor-button-location" buttonText="Add Location" handleClick={() => getTags(formik)} />
+                        <ProfileCustomButton className="constructor-button-location" type="button" buttonText="Add Location" handleClick={() => getTags(formik)} />
                     </li>
                     <li>
-                        <ProfileCustomButton className="constructor-button-retry hide" buttonText="Retry" handleClick={() => hideTags(formik)} />
+                        <ProfileCustomButton className="constructor-button-retry hide" type="button" buttonText="Retry" handleClick={() => hideTags(formik)} />
                     </li>
                     <li>
                         <div className="profile-block profile-contructor-block">
@@ -128,10 +128,10 @@ function ProfileConstructor() {
                         </div>
                     </li>
                     <li>
-                        <ProfileCustomButton type="submit" buttonText="Add Post"/>
+                        <ProfileCustomButton type="submit" buttonText="Add Post" />
                     </li>
                 </ul>
-            </div>
+            </form>
         </>
 
     )
