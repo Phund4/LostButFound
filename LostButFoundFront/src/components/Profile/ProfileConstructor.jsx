@@ -122,11 +122,15 @@ function ProfileConstructor() {
                                     type="file"
                                     name="file"
                                     onChange={handleFiles}
-                                    value={formik.file}
-                                    
                                 />
                             </p>
-                            <canvas width="300" height="300" id="constructor-canvas"/>
+                            <canvas 
+                                width="300" 
+                                height="300" 
+                                id="constructor-canvas"
+                                name="file"
+                                value={formik.file}
+                            />
                         </div>
                     </li>
                     <li>

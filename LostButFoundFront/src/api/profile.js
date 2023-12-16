@@ -38,16 +38,18 @@ export async function addPost(values) {
     console.log(values);
     let canvas = document.getElementById('constructor-canvas');
     let dataURL = canvas.toDataURL();
+    let formdata = new FormData();
+    formdata.append('file', values.file);
     const url = `https://localhost:7110/api/Thing/AddPost?Name` + 
     `=${values.title}&Description=${values.description}&City=${values.tags.city}` + 
-    `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}` +
-    `&File=${dataURL}`;
+    `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
             "Accept": 'application/json',
-            "Content-Type": 'application/json'
-        }
+            "Content-Type": 'application/json; multipart/form-data'
+        },
+        body: formdata
     })
     
     return await response.json();
