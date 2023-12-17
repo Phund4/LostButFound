@@ -41,8 +41,7 @@ export function updateData(id) {
     document.addEventListener('keydown', function (event) {
         if (event.code == 'Enter') {
             updateLogin(p.textContent).then(result => {
-                console.log(result);
-                localStorage.setItem('token', result.token);
+                localStorage.setItem('token', result);
             });
             p.setAttribute("contenteditable", "false");
         }
