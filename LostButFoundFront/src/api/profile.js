@@ -41,9 +41,9 @@ export async function addPost(values) {
     // let formdata = new FormData();
     // formdata.append('file', values.file);
     const token = localStorage.getItem('token');
-    const url = `https://localhost:7110/api/Thing/AddPost?Name` + 
-    `=${values.title}&Description=${values.description}&City=${values.tags.city}` + 
-    `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
+    const url = `https://localhost:7110/api/Thing/AddPost?Name` +
+        `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
+        `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -51,18 +51,23 @@ export async function addPost(values) {
             "Authorization": `Bearer ${token}`
         }
     })
-    
+
     return await response.json();
 }
 
 export async function getPosts() {
-    const url = 'https://localhost:7110/api/Thing/GetPosts';
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Accept": 'application/json',
-            "Content-Type": 'application/json',
-        }
-    })
-    return response.json();
+    try {
+        const url = 'https://localhost:7110/api/Thing/GetPosts';
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+            }
+        })
+        return response.json();
+    } catch (e) {
+        return null
+    }
+    
 }

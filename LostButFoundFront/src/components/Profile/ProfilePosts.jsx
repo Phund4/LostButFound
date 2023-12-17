@@ -1,28 +1,29 @@
 import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState} from 'react';
 import { getPosts } from '../../api/profile';
 
 function ProfileConstructorInfo() {
-    let posts = useRef([]);
+    let [posts, setPosts] = useState([]);
     useEffect(() => {
         getPosts().then(result => {
-            posts.current = result;
+            setPosts(result);
+            console.log(result)
         })
-    }, )
+    }, [])
     return (
         <>
             <div className="profile-posts profile-rightbox-child hide">
                 <h1>Posts</h1>
                 {posts.map((el, index) =>
                         <ProfileCustomPost
-                            username={el.UserName}
-                            imgsrc={el.PathToIMG}
-                            city={el.City}
-                            district={el.District}
-                            street={el.Street}
-                            metro={el.Metro}
-                            title={el.Name}
-                            description={el.Description}
+                            username={el.userName}
+                            imgsrc={el.pathToIMG}
+                            city={el.city}
+                            district={el.district}
+                            street={el.street}
+                            metro={el.metro}
+                            title={el.name}
+                            description={el.description}
                             key={index}
                         />
                 )}
