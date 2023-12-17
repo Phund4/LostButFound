@@ -18,7 +18,7 @@ LostButFound - это веб-платформа, созданная для по�
 
 ## Зависимости
 
-lostbutfoundfront@0.0.0
+lostbutfoundfront@0.0.0 <br />
 ├── @types/react-dom@18.2.11
 ├── @types/react@18.2.25
 ├── @vitejs/plugin-react@4.1.0
