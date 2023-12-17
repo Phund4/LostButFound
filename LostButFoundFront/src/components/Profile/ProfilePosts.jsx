@@ -14,7 +14,7 @@ function ProfileConstructorInfo() {
         <>
             <div className="profile-posts profile-rightbox-child hide">
                 <h1>Posts</h1>
-                {posts.map((el, index) =>
+                {posts?.map((el, index) =>
                         <ProfileCustomPost
                             username={el.userName}
                             imgsrc={el.pathToIMG}

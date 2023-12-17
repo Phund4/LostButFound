@@ -18,6 +18,20 @@ export async function getUserData() {
     }
 }
 
+export async function updateLogin(login) {
+    const token = localStorage.getItem('token');
+    const url = `https://localhost:7110/api/User/UpdateLogin?newLogin=${login}`;
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json',
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    return response.json();
+}
+
 export async function getAddress(address) {
     const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
     try {

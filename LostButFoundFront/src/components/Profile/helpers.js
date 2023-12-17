@@ -1,4 +1,4 @@
-import { getAddress } from "../../api/profile";
+import { getAddress, updateLogin } from "../../api/profile";
 export function getTags(formik) {
     getAddress(formik.values.address)
         .then((result) => {
@@ -33,4 +33,15 @@ export function handleFiles(e) {
     img.onload = function() {
         ctx.drawImage(img, 0, 0, (img.width > img.height ? 400 : 300), (img.height > img.wigth ? 400 : 300));
     }
+}
+
+export function updateData(id) {
+    let p = document.getElementById(id);
+    p.setAttribute("contenteditable", "true");
+    document.addEventListener('keydown', function (event) {
+        if (event.code == 'Enter') {
+            updateLogin(p.textContent).then(result => console.log(result));
+            p.setAttribute("contenteditable", "false");
+        }
+    })
 }
