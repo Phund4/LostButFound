@@ -1,8 +1,64 @@
-# React + Vite
+# Lost but Found
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LostButFound - это веб-платформа, созданная для помощи пользователям в поиске утерянных вещей. 
+Пользователи, потерявшие предмет, могут создавать подробные запросы, предоставляя всю необходимую информацию о потерянном предмете.
 
-Currently, two official plugins are available:
+## Ключевые функции
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Создание Запросов
+
+- Пользователи могут создавать подробные запросы о потерянных вещах, включая описания и место утери предмета.
+
+### 2. Поиск и Отклик
+
+- Пользователи, нашедшие утерянный предмет, могут просматривать запросы, оставленные другими пользователями.
+- Возможность откликнуться на запрос и уведомить владельца, что предмет найден.
+
+# Требования для Frontend
+
+## Зависимости
+
+lostbutfoundfront@0.0.0
+├── @types/react-dom@18.2.11
+├── @types/react@18.2.25
+├── @vitejs/plugin-react@4.1.0
+├── all-the-cities@3.1.0
+├── dotenv@16.3.1
+├── eslint-plugin-react-hooks@4.6.0
+├── eslint-plugin-react-refresh@0.4.3
+├── eslint-plugin-react@7.33.2
+├── eslint@8.51.0
+├── formik@2.4.5
+├── react-dom@18.2.0
+├── react-router-dom@6.16.0
+├── react@18.2.0
+├── sass@1.69.0
+└── vite@4.4.11
+
+## Установка
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/Phund4/LostButFound
+```
+
+2. Перейдите в директорию проекта:
+```bash
+cd your_directory
+```
+3. Перейдите в директорию frontend:
+```bash
+cd lostbutfoundfront
+```
+4. Установите [node.js](https://nodejs.org/en)
+
+5. Добавьте необходимые пакеты:
+```bash
+npm install
+```
+
+# Запуск Frontend:
+Убедитесь, что все зависимости установлены. 
+После чего введите для запуска: 
+```bash
+npm run dev1
+```
