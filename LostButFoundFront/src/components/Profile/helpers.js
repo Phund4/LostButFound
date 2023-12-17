@@ -40,7 +40,10 @@ export function updateData(id) {
     p.setAttribute("contenteditable", "true");
     document.addEventListener('keydown', function (event) {
         if (event.code == 'Enter') {
-            updateLogin(p.textContent).then(result => console.log(result));
+            updateLogin(p.textContent).then(result => {
+                console.log(result);
+                localStorage.setItem('token', result.token);
+            });
             p.setAttribute("contenteditable", "false");
         }
     })
