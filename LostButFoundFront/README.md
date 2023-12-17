@@ -19,21 +19,21 @@ LostButFound - это веб-платформа, созданная для по�
 ## Зависимости
 
 lostbutfoundfront@0.0.0 <br />
-├── @types/react-dom@18.2.11
-├── @types/react@18.2.25
-├── @vitejs/plugin-react@4.1.0
-├── all-the-cities@3.1.0
-├── dotenv@16.3.1
-├── eslint-plugin-react-hooks@4.6.0
-├── eslint-plugin-react-refresh@0.4.3
-├── eslint-plugin-react@7.33.2
-├── eslint@8.51.0
-├── formik@2.4.5
-├── react-dom@18.2.0
-├── react-router-dom@6.16.0
-├── react@18.2.0
-├── sass@1.69.0
-└── vite@4.4.11
+├── @types/react-dom@18.2.11 <br />
+├── @types/react@18.2.25 <br />
+├── @vitejs/plugin-react@4.1.0 <br />
+├── all-the-cities@3.1.0 <br />
+├── dotenv@16.3.1 <br />
+├── eslint-plugin-react-hooks@4.6.0 <br />
+├── eslint-plugin-react-refresh@0.4.3 <br />
+├── eslint-plugin-react@7.33.2 <br />
+├── eslint@8.51.0 <br />
+├── formik@2.4.5 <br />
+├── react-dom@18.2.0 <br />
+├── react-router-dom@6.16.0 <br />
+├── react@18.2.0 <br />
+├── sass@1.69.0 <br />
+└── vite@4.4.11 <br />
 
 ## Установка
 1. Клонируйте репозиторий:
