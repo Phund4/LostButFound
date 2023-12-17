@@ -54,3 +54,15 @@ export async function addPost(values) {
     
     return await response.json();
 }
+
+export async function getPosts() {
+    const url = 'https://localhost:7110/api/Thing/GetPosts';
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Accept": 'application/json',
+            "Content-Type": 'application/json',
+        }
+    })
+    return response.json();
+}

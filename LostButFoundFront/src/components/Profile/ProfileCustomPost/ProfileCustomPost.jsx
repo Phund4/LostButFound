@@ -9,7 +9,7 @@ export default function ProfileCustomPost(props) {
                     <img src={props.imgsrc} />
                 </div>
                 <ul className="details">
-                    <li className="author"><a href="#"></a></li>
+                    <li className="author"><a href="#">{props.username}</a></li>
                     <li className="date"></li>
                     <li className="tags">
                         <ul>
