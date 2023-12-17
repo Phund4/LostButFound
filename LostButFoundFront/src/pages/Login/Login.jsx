@@ -80,7 +80,7 @@ const Login = () => {
 
     return (
         <FormAuthorize
-            headerText="Register Form"
+            headerText="Login Form"
             onSubmit={formik.handleSubmit}
             childrens={[loginOrEmail, password, linkToRegistration, messageError, submitButton]}
         />

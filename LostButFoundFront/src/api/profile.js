@@ -40,13 +40,15 @@ export async function addPost(values) {
     // let dataURL = canvas.toDataURL();
     // let formdata = new FormData();
     // formdata.append('file', values.file);
+    const token = localStorage.getItem('token');
     const url = `https://localhost:7110/api/Thing/AddPost?Name` + 
     `=${values.title}&Description=${values.description}&City=${values.tags.city}` + 
     `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
     const response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------"
+            "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
+            "Authorization": `Bearer ${token}`
         }
     })
     
