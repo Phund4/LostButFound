@@ -8,7 +8,9 @@ const errors = {
 
 async function sendLoginData(loginOrEmail, password) {
     try {
-        axios.post("https://localhost:7110/api/User/Login",{
+        const url = "https://localhost:7110/api/User/Login"
+        let res = null;
+        axios.post(url,{
             loginOrEmail: loginOrEmail,
             Password: password
         }, {
@@ -18,12 +20,12 @@ async function sendLoginData(loginOrEmail, password) {
             }
         }).then(response => {
             localStorage.setItem('token', response.data.token);
-            return 'Done';
+            res = 'Done';
         }).catch(() => {
-            return errors[400];
+            res = errors[400];
         })
+        return res;
     } catch (error) {
-        console.log(error);
         return errors[500];
     }
 }

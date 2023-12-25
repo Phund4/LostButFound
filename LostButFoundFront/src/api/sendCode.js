@@ -8,17 +8,20 @@ const errors = {
 
 async function sendCode(code) {
     try {
-        axios.post(`https://localhost:7110/api/User/ConfirmRegister?code=${code}`, {}, {
+        const url = `https://localhost:7110/api/User/ConfirmRegister?code=${code}`;
+        let res = null;
+        axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
             }
         }).then(() => {
-            return 'Done'
+            res = 'Done';
         }).catch(err => {
             console.log(err);
-            return errors[400];
+            res = errors[400];
         })
+        return res;
     } catch (error) {
         return errors[500];
     }

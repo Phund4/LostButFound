@@ -8,7 +8,9 @@ const errors = {
 
 async function sendRegistrationData(fullname, login, email, password) {
     try {
-        axios.post("https://localhost:7110/api/User/Register", {
+        const url = "https://localhost:7110/api/User/Register";
+        let res = null;
+        axios.post(url, {
             FullName: fullname,
             Login: login,
             Email: email,
@@ -19,11 +21,12 @@ async function sendRegistrationData(fullname, login, email, password) {
                 "Content-Type": 'application/json'
             },
         }).then(() => {
-            return 'Done';
+            res = 'Done';
         }).catch(err => {
             console.log(err);
-            return errors[400];
+            res = errors[400];
         })
+        return res;
     } catch (error) {
         return errors[500];
     }

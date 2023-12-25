@@ -1,48 +1,66 @@
+import axios from 'axios';
+
 export async function getUserData() {
     try {
         const token = localStorage.getItem('token');
+        let res = null;
         // if (!!token == false) {
         //     document.location.href = '/login'
         // }
-        const response = await fetch("https://localhost:7110/api/User/GetCurrentUser", {
-            method: "GET",
+        axios.get("https://localhost:7110/api/User/GetCurrentUser", {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
                 "Authorization": `Bearer ${token}`
             }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
         })
-        return response.json();
+        return res;
     } catch (error) {
         return null;
     }
 }
 
 export async function updateLogin(login) {
-    const token = localStorage.getItem('token');
-    const url = `https://localhost:7110/api/User/UpdateLogin?newLogin=${login}`;
-    let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Accept": 'application/json',
-            "Content-Type": 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
-    })
-    return response.json();
+    try {
+        const token = localStorage.getItem('token');
+        let res = null;
+        const url = `https://localhost:7110/api/User/UpdateLogin?newLogin=${login}`;
+        axios.post(url, {}, {
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
+        })
+        return res;
+    } catch (err) {
+        return null;
+    }
 }
 
 export async function getAddress(address) {
-    const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
     try {
-        const response = await fetch(url, {
-            method: "POST",
+        const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
+        let res = null;
+        axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
             }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
         })
-        return await response.json();
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -54,34 +72,45 @@ export async function addPost(values) {
     // let dataURL = canvas.toDataURL();
     // let formdata = new FormData();
     // formdata.append('file', values.file);
-    const token = localStorage.getItem('token');
-    const url = `https://localhost:7110/api/Thing/AddPost?Name` +
-        `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
-        `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
-            "Authorization": `Bearer ${token}`
-        }
-    })
-
-    return await response.json();
+    try {
+        const token = localStorage.getItem('token');
+        const url = `https://localhost:7110/api/Thing/AddPost?Name` +
+            `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
+            `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
+        let res = null;
+        axios.post(url, {}, {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
+                "Authorization": `Bearer ${token}`
+            }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
+        })
+        return res;
+    } catch (err) {
+        return null;
+    }
 }
 
 export async function getPosts() {
     try {
         const url = 'https://localhost:7110/api/Thing/GetPosts';
-        const response = await fetch(url, {
-            method: "GET",
+        let res = null;
+        axios.get(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
             }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
         })
-        return response.json();
+        return res;
     } catch (e) {
-        return null
+        return null;
     }
-    
+
 }
