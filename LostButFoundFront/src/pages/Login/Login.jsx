@@ -23,13 +23,11 @@ const Login = () => {
         validate,
         onSubmit: values => {
             const msg = sendLoginData(values.loginOrEmail, values.password);
-            msg?.then(response => {
-                if (response == 'Done') {
-                    navigate('/myprofile');
-                } else {
-                    document.getElementById('login-status-error').textContent = response;
-                }
-            })
+            if (msg == 'Done') {
+                navigate('/myprofile');
+                return;
+            }
+            document.getElementById('login-status-error').textContent = msg;
         },
     });
 

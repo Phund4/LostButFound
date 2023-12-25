@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const errors = {
     400: "Incorrect Code",
     404: "Something went wrong...",
@@ -6,19 +8,17 @@ const errors = {
 
 async function sendCode(code) {
     try {
-        const response = await fetch(`https://localhost:7110/api/User/ConfirmRegister?code=${code}`, {
-            method: "POST",
+        axios.post(`https://localhost:7110/api/User/ConfirmRegister?code=${code}`, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
             }
-        });
-        const status = response.status;
-        if (errors[status]) {
-            return errors[status];
-        } else {
+        }).then(() => {
             return 'Done'
-        }
+        }).catch(err => {
+            console.log(err);
+            return errors[400];
+        })
     } catch (error) {
         return errors[500];
     }

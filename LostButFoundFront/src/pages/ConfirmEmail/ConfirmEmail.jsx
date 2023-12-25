@@ -23,13 +23,11 @@ const ConfirmEmail = () => {
         validate,
         onSubmit: values => {
             const msg = sendCode(values.code);
-            msg.then(response => {
-                if (response == 'Done') {
-                    navigate('/login');
-                } else {
-                    document.getElementById('confirmemail-status-error').textContent = response;
-                }
-            })
+            if (msg == 'Done') {
+                navigate('/login');
+                return;
+            }
+            document.getElementById('confirmemail-status-error').textContent = msg;
         },
     });
 
