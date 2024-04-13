@@ -6,7 +6,7 @@ const errors = {
     500: "Internal Server error"
 }
 
-async function sendCode(code) {
+export async function sendCode(code) {
     try {
         const url = `https://localhost:7110/api/User/ConfirmRegister?code=${code}`;
         let res = null;
@@ -27,4 +27,22 @@ async function sendCode(code) {
     }
 }
 
-export default sendCode;
+export async function resendCode() {
+    try {
+        const url = `https://localhost:7110/api/User/ResendCode`;
+        let res = null;
+        await axios.get(url, {
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json'
+            }
+        }).then(() => {
+            res = 'Done';
+        }).catch(err => {
+            throw err
+        })
+        return res;
+    } catch (err) {
+        return errors[500]
+    }
+}
