@@ -1,16 +1,16 @@
 import axios from 'axios'
 
 const errors = {
-    400: "Incorrect Code",
+    400: "Incorrect code",
     404: "Something went wrong...",
-    500: "Server error"
+    500: "Internal Server error"
 }
 
 async function sendCode(code) {
     try {
         const url = `https://localhost:7110/api/User/ConfirmRegister?code=${code}`;
         let res = null;
-        axios.post(url, {}, {
+        await axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
@@ -18,12 +18,12 @@ async function sendCode(code) {
         }).then(() => {
             res = 'Done';
         }).catch(err => {
-            console.log(err);
-            res = errors[400];
+            throw err
         })
         return res;
-    } catch (error) {
-        return errors[500];
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500];
+        else return errors[500];
     }
 }
 

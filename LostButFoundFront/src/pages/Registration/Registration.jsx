@@ -33,11 +33,15 @@ const Registration = () => {
         validate,
         onSubmit: values => {
             const msg = sendRegistrationData(values.fullname, values.login, values.email, values.password);
-            if (msg == 'Done') {
-                navigate('/confirmemail');
-                return;
-            }
-            document.getElementById('registration-status-error').textContent = msg;
+            msg.then(resp => {
+                if (resp == 'Done') {
+                    navigate('/confirmemail');
+                    return;
+                }
+                document.getElementById('registration-status-error').textContent = resp;
+            }).catch(resp => {
+                document.getElementById('registration-status-error').textContent = resp;
+            })
         },
     });
 

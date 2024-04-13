@@ -1,0 +1,42 @@
+*, ::after, ::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  background: linear-gradient(to right, #3FB6A8, #7ED386);
+}
+
+.form__submit {
+  outline: none;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  padding: 0.875rem 2.5rem;
+  color: #000;
+  border: 2.5px solid #000;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  transition: transform 0.3s;
+  transform: translate(-3px, -3px);
+  cursor: pointer;
+}
+.form__submit:hover {
+  border: 2.5px solid #000;
+  transform: translate(0px);
+}
+
+.form__button {
+  justify-self: center;
+  border-radius: 0.25rem;
+  background-color: #000;
+}/*# sourceMappingURL=formbutton-authorize.css.map */

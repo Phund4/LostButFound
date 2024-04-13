@@ -1,11 +1,13 @@
 import ProfileInput from './ProfileInput/ProfileInput';
+import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost'
 import { useEffect, useState } from 'react';
-import { getUserData } from '../../api/profile';
+import { getUserData, getUserPosts } from '../../api/profile';
 function ProfileUserData() {
     const [fullname, setFullname] = useState("");
     const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
     const [rating, setRating] = useState(0);
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
         getUserData().then(result => {
             setFullname(result.fullName);
@@ -13,6 +15,9 @@ function ProfileUserData() {
             setEmail(result.email);
             setRating(result.rating);
         });
+        getUserPosts(1).then(result => {
+            setPosts(result);
+        })
     }, [])
     return (
         <div className="profile-profile profile-rightbox-child">
@@ -38,6 +43,23 @@ function ProfileUserData() {
                     textHead="Rating"
                     isNeedButton={false}
                 />
+            </ul>
+            <ul>
+                {posts.map((ind, el) => {
+                    return <li key={ind}>
+                        <ProfileCustomPost
+                            city={el.city}
+                            district={el.district}
+                            street={el.street}
+                            metro={el.metro}
+                            username={el.username}
+                            imgSrc={el.imgsrc}
+                            title={el.title}
+                            description={el.description}
+                            comment={el.comment}
+                        />
+                    </li>
+                })}
             </ul>
         </div>
     )

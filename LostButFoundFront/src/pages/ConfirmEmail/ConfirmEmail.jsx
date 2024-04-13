@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import FormInputAuthorize from '../../components/Form/FormInputAuthorize/FormInputAuthorize';
 import FormButtonAuthorize from '../../components/Form/FormButtonAuthorize/FormButtonAuthorize';
 import FormAuthorize from '../../components/Form/FormAuthorize/FormAuthorize'
-import sendCode from '../../api/sendCode';
+import sendCode from '../../api/confirmEmail';
+import FormTimer from '../../components/Form/FormTimer/FormTimer'
 
 const validate = values => {
     const errors = {};
@@ -23,11 +24,16 @@ const ConfirmEmail = () => {
         validate,
         onSubmit: values => {
             const msg = sendCode(values.code);
-            if (msg == 'Done') {
-                navigate('/login');
+            msg.then(resp => {
+                if (resp == 'Done') {
+                    navigate('/login');
+                } else {
+                    document.getElementById('confirmemail-status-error').textContent = resp;
+                }
                 return;
-            }
-            document.getElementById('confirmemail-status-error').textContent = msg;
+            }).catch(resp => {
+                document.getElementById('confirmemail-status-error').textContent = resp;
+            })
         },
     });
 
@@ -55,16 +61,18 @@ const ConfirmEmail = () => {
         key="sendCodeButton"
     />
 
-    // const timer = <MyTimer
-    //     duration={5}
-    //     key="confirm-email-timer"
-    // />
+    const timer = <FormTimer
+        seconds={5}
+        callback={formik.handleSubmit}
+        callbackParams={[formik.values.code]}
+        key="confirm-email-timer"
+    />
 
     return (
         <FormAuthorize
-            headerText="Register Form"
+            headerText="Confirm email Form"
             onSubmit={formik.handleSubmit}
-            childrens={[confirmCode, messageError, submitButton]}
+            childrens={[confirmCode, messageError, submitButton, timer]}
         />
     )
 }

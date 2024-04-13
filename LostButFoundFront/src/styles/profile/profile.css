@@ -1,0 +1,109 @@
+*, ::after, ::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  background: linear-gradient(to right, #3FB6A8, #7ED386);
+}
+
+.profile-container nav {
+  padding-top: 5rem;
+  display: grid;
+  justify-content: center;
+}
+
+.profile-container h1 {
+  font-family: "Montserrat", sans-serif;
+  color: #7ED386;
+  font-size: 3rem;
+  margin-top: 4rem;
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.profile-container h2 {
+  color: #777777;
+  font-family: "Roboto", sans-serif;
+  width: 80%;
+  text-transform: uppercase;
+  font-size: 8px;
+  letter-spacing: 1px;
+  margin-left: 2px;
+}
+
+.profile-container p {
+  border-width: 1px;
+  border-style: solid;
+  -o-border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+     border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+  border-top: 0;
+  width: max(-moz-min-content, 90%);
+  width: max(min-content, 90%);
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  padding-bottom: 0.3rem;
+  color: #070707;
+}
+
+.profile-container {
+  background: #FFFFFF;
+  width: 100rem;
+  min-height: 42rem;
+  margin: 0 auto;
+  margin-top: 10%;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+  display: flex;
+  justify-content: left;
+}
+
+.profile-leftbox {
+  width: 15%;
+  height: 110vh;
+  background: #7ED386;
+  margin: 0 2rem 0 2rem;
+  box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
+}
+
+.profile-rightbox {
+  width: 100%;
+  height: 100%;
+}
+.profile-rightbox ul {
+  margin: 0;
+  padding: 0;
+}
+.profile-rightbox ul li {
+  list-style-type: none;
+}
+.profile-rightbox ul li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.hide {
+  display: none;
+}
+
+.profile-contructor-block {
+  margin-bottom: 2rem;
+}
+.profile-contructor-block p {
+  display: flex;
+}
+.profile-contructor-block p input {
+  margin-left: 2rem;
+}
+
+#constructor-canvas {
+  margin-top: 1rem;
+}/*# sourceMappingURL=profile.css.map */

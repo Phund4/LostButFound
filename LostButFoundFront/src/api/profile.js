@@ -112,5 +112,24 @@ export async function getPosts() {
     } catch (e) {
         return null;
     }
+}
 
+export async function getUserPosts(userID) {
+    try {
+        const url = `https://localhost:7110/api/Thing/GetPosts?id=${userID}`;
+        let res = null;
+        axios.get(url, {
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+            }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            console.log(err);
+        })
+        return res;
+    } catch (e) {
+        return null;
+    }
 }

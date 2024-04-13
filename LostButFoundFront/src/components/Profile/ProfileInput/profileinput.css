@@ -1,0 +1,28 @@
+*, ::after, ::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  background: linear-gradient(to right, #3FB6A8, #7ED386);
+}
+
+.profile-profile-btn {
+  float: right;
+  width: 6rem !important;
+  height: 3rem !important;
+  text-transform: uppercase;
+}
+.profile-profile-btn span {
+  line-height: 3rem;
+}/*# sourceMappingURL=profileinput.css.map */

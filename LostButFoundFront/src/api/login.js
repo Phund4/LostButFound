@@ -3,14 +3,14 @@ import axios from 'axios'
 const errors = {
     400: "Incorrect login or password",
     404: "Something went wrong...",
-    500: "Server error"
+    500: "Internal server error"
 }
 
 async function sendLoginData(loginOrEmail, password) {
     try {
         const url = "https://localhost:7110/api/User/Login"
         let res = null;
-        axios.post(url,{
+        await axios.post(url,{
             loginOrEmail: loginOrEmail,
             Password: password
         }, {
@@ -21,12 +21,13 @@ async function sendLoginData(loginOrEmail, password) {
         }).then(response => {
             localStorage.setItem('token', response.data.token);
             res = 'Done';
-        }).catch(() => {
-            res = errors[400];
+        }).catch((err) => {
+            throw err
         })
         return res;
-    } catch (error) {
-        return errors[500];
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500];
+        else return errors[400];
     }
 }
 
