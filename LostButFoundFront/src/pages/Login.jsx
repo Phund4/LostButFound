@@ -1,14 +1,18 @@
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
-import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
-import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
-import sendLoginData from '../api/login';
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import FormInputAuthorize from "../components/Form/FormInputAuthorize/FormInputAuthorize";
+import FormButtonAuthorize from "../components/Form/FormButtonAuthorize/FormButtonAuthorize";
+import FormAuthorize from "../components/Form/FormAuthorize/FormAuthorize";
+import sendLoginData from "../api/login";
 
-const validate = values => {
+const validate = (values) => {
     const errors = {};
-    if (!values.loginOrEmail || !values.password || values.password.length < 6) {
-        errors.fullname = 'Incorrect form';
+    if (
+        !values.loginOrEmail ||
+        !values.password ||
+        values.password.length < 6
+    ) {
+        errors.fullname = "Incorrect form";
     }
     return errors;
 };
@@ -17,76 +21,100 @@ const Login = () => {
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
-            loginOrEmail: '',
-            password: ''
+            loginOrEmail: "",
+            password: "",
         },
         validate,
-        onSubmit: values => {
+        onSubmit: (values) => {
             const msg = sendLoginData(values.loginOrEmail, values.password);
-            msg.then(resp => {
-                if (resp == 'Done') {
-                    navigate('/myprofile');
+            msg.then((resp) => {
+                if (resp == "Done") {
+                    navigate("/myprofile");
                     return;
                 }
-                document.getElementById('login-status-error').textContent = resp;
-            }).catch(resp => {
-                document.getElementById('login-status-error').textContent = resp;
-            })
+                document.getElementById("login-status-error").textContent =
+                    resp;
+            }).catch((resp) => {
+                document.getElementById("login-status-error").textContent =
+                    resp;
+            });
         },
     });
 
-    const loginOrEmail = <FormInputAuthorize
-        type="text"
-        name="loginOrEmail"
-        placeholder="Enter Login or Email"
-        id="login-input-loginoremail"
-        messageId="login-input-loginoremail-message-error"
-        key="login-input-loginoremail"
-        isValidInput={() => true}
-        messageError="Incorrect field"
-        onChange={formik.handleChange}
-        value={formik.values.loginOrEmail}
-    />
+    const loginOrEmail = (
+        <FormInputAuthorize
+            type="text"
+            name="loginOrEmail"
+            placeholder="Enter Login or Email"
+            id="login-input-loginoremail"
+            messageId="login-input-loginoremail-message-error"
+            key="login-input-loginoremail"
+            isValidInput={() => true}
+            messageError="Incorrect field"
+            onChange={formik.handleChange}
+            value={formik.values.loginOrEmail}
+        />
+    );
 
-    const password = <FormInputAuthorize
-        type="password"
-        name="password"
-        placeholder="Enter Password"
-        id="login-input-password"
-        messageId="login-input-password-message-error"
-        key="login-input-password"
-        isValidInput={value => value.length >= 6}
-        messageError="The password must be at least 6 characters long"
-        onChange={formik.handleChange}
-        value={formik.values.password}
-    />
+    const password = (
+        <FormInputAuthorize
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            id="login-input-password"
+            messageId="login-input-password-message-error"
+            key="login-input-password"
+            isValidInput={(value) => value.length >= 6}
+            messageError="The password must be at least 6 characters long"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+        />
+    );
 
-    const linkToRegistration = <p
-        className="link-to-registration"
-        onClick={() => navigate("/registration")}
-        key="link-to-registration"
-    >
-        I am not registered
-    </p>
+    const linkToRegistration = (
+        <p
+            className="link-to-registration"
+            onClick={() => navigate("/registration")}
+            key="link-to-registration"
+        >
+            I am not registered
+        </p>
+    );
 
-    const messageError = <p
-        id='login-status-error'
-        key='login-status-error'
-    />
+    const linkToRestorePassword = (
+        <p
+            className="link-to-restorepassword"
+            onClick={() => navigate("/restorepassword")}
+            key="link-to-restorepassword"
+        >
+            I forgot my password
+        </p>
+    );
 
-    const submitButton = <FormButtonAuthorize
-        type="submit"
-        buttonText="Login Up"
-        key="LoginUpButton"
-    />
+    const messageError = <p id="login-status-error" key="login-status-error" />;
+
+    const submitButton = (
+        <FormButtonAuthorize
+            type="submit"
+            buttonText="Login Up"
+            key="LoginUpButton"
+        />
+    );
 
     return (
         <FormAuthorize
             headerText="Login Form"
             onSubmit={formik.handleSubmit}
-            childrens={[loginOrEmail, password, linkToRegistration, messageError, submitButton]}
+            childrens={[
+                loginOrEmail,
+                password,
+                linkToRegistration,
+                linkToRestorePassword,
+                messageError,
+                submitButton,
+            ]}
         />
-    )
-}
+    );
+};
 
 export default Login;
