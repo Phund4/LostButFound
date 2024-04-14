@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import './form-authorize.sass';
+import "./form-authorize.sass";
 
-function MyForm(props) {
+function MyForm({ onSubmit, headerText = "", childrens = [] }) {
     return (
         <div className="form">
-            <form action="/" className="form__content" onSubmit={props.onSubmit}>
-                <h1>{props?.headerText}</h1>
-                {props?.childrens.map(child => child)}
+            <form action="/" className="form__content" onSubmit={onSubmit}>
+                <h1>{headerText}</h1>
+                {childrens.map((child) => child)}
             </form>
         </div>
-    )
+    );
 }
 
 export default MyForm;

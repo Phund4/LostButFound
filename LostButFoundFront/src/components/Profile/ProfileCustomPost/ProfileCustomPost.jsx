@@ -1,34 +1,58 @@
 /* eslint-disable react/prop-types */
-import './profile-custom-post.sass'
+import "./profile-custom-post.sass";
 
-export default function ProfileCustomPost(props) {
+export default function ProfileCustomPost({
+    imgsrc,
+    username,
+    city,
+    district,
+    street,
+    metro,
+    title,
+    description,
+    comment,
+}) {
     return (
         <div className="blog-card">
             <div className="meta">
                 <div className="photo">
-                    <img src={props.imgsrc} />
+                    <img src={imgsrc} />
                 </div>
                 <ul className="details">
-                    <li className="author"><a href="#">{props.username}</a></li>
+                    <li className="author">
+                        <a href="#">{username}</a>
+                    </li>
                     <li className="tags">
                         <ul>
-                            <li>City: <a href="#">{props.city}</a></li><br/>
-                            <li>District: <a href="#">{props.district}</a></li><br/>
-                            <li>Street: <a href="#">{props.street}</a></li><br/>
-                            <li>Metro: <a href="#">{props.metro}</a></li><br/>
+                            <li>
+                                City: <a href="#">{city}</a>
+                            </li>
+                            <br />
+                            <li>
+                                District: <a href="#">{district}</a>
+                            </li>
+                            <br />
+                            <li>
+                                Street: <a href="#">{street}</a>
+                            </li>
+                            <br />
+                            <li>
+                                Metro: <a href="#">{metro}</a>
+                            </li>
+                            <br />
                         </ul>
                     </li>
                 </ul>
             </div>
             <div className="description">
-                <h3>Title: {props.title}</h3>
+                <h3>Title: {title}</h3>
                 <h4></h4>
-                <p>Description: {props.description}</p>
-                <p>Comment: {props.comment}</p>
+                <p>Description: {description}</p>
+                <p>Comment: {comment}</p>
                 <p className="read-more">
                     <a href="#">I found it</a>
                 </p>
             </div>
         </div>
-    )
+    );
 }

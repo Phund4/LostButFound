@@ -7,7 +7,6 @@ function ProfileConstructorInfo() {
     useEffect(() => {
         getPosts().then(result => {
             setPosts(result);
-            console.log(result)
         })
     }, [])
     return (

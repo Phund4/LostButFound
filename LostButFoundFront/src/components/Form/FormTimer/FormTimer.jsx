@@ -2,7 +2,7 @@
 import {useEffect, useState} from 'react'
 import "./codetimer.sass";
 
-const CodeTimer = ({ seconds = 0, callback, callbackParams = [] }) => {
+const CodeTimer = ({ seconds = 0, callback = () => {}, callbackParams = [], formText = "" }) => {
     const [over, setOver] = useState(false);
     const [s, setTime] = useState(seconds);
 
@@ -28,8 +28,8 @@ const CodeTimer = ({ seconds = 0, callback, callbackParams = [] }) => {
 
     return (
         <div>
-            <p className='timer-text'>{over ? "" :`Resend code in ${s.toString().padStart(1, "0")} seconds`}</p>
-            <div className="timer-text underline-text" onClick={() => reset()}>{over ? "Resend code" : ""}</div>
+            <p className='timer-text'>{over ? "" :`${formText} in ${s.toString().padStart(1, "0")} seconds`}</p>
+            <div className="timer-text underline-text" onClick={() => reset()}>{over ? `${formText}` : ""}</div>
         </div>
     );
 };

@@ -1,23 +1,35 @@
 /* eslint-disable react/prop-types */
-import "./forminput-authorize.sass"
+import "./forminput-authorize.sass";
 import isValid from "./helpers";
 
-function FormInputAuthorize(props) {
+function FormInputAuthorize({
+    messageId,
+    type,
+    name,
+    placeholder,
+    id,
+    onChange,
+    value,
+    isValidInput,
+    messageError,
+}) {
     return (
         <div className="form__box">
-            <p className="message-error hide" id={props?.messageId}></p>
+            <p className="message-error hide" id={messageId}></p>
             <input
-                type={props?.type}
-                name={props.name}
-                placeholder={props?.placeholder}
+                type={type}
+                name={name}
+                placeholder={placeholder}
                 className="form__input incorrect-value"
-                id={props?.id}
-                onBlur={() => isValid(props)}
-                onChange={props.onChange}
-                value={props.value}
+                id={id}
+                onBlur={() =>
+                    isValid(messageId, id, isValidInput, messageError)
+                }
+                onChange={onChange}
+                value={value}
             />
         </div>
-    )
+    );
 }
 
 export default FormInputAuthorize;

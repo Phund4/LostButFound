@@ -1,10 +1,9 @@
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import FormInputAuthorize from '../../components/Form/FormInputAuthorize/FormInputAuthorize';
-import FormButtonAuthorize from '../../components/Form/FormButtonAuthorize/FormButtonAuthorize';
-import FormAuthorize from '../../components/Form/FormAuthorize/FormAuthorize'
-import sendCode from '../../api/restorePassword';
-import FormTimer from '../../components/Form/FormTimer/FormTimer'
+import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
+import sendCode from '../api/restorePassword';
 
 const validate = values => {
     const errors = {};
@@ -65,18 +64,11 @@ const RestorePassword = () => {
         key="RestorePasswordButton"
     />
 
-    const timer = <FormTimer
-        seconds={5}
-        callback={formik.handleSubmit}
-        callbackParams={[formik.values.emailToRestore]}
-        key='restore-password-timer'
-    />
-
     return (
         <FormAuthorize
             headerText="Restore password Form"
             onSubmit={formik.handleSubmit}
-            childrens={[emailToRestore, messageError, submitButton, timer]}
+            childrens={[emailToRestore, messageError, submitButton]}
         />
         
     )

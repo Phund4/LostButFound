@@ -1,18 +1,14 @@
 /* eslint-disable react/prop-types */
 import "./formbutton-authorize.sass";
 
-function FormButtonAuthorize(props) {
+function FormButtonAuthorize({ type = "", handleSubmit, buttonText = "" }) {
     return (
         <div className="form__button">
-            <button
-                type={props.type}
-                className="form__submit"
-                onClick={props?.handleSubmit}
-            >
-                {props?.buttonText}
+            <button type={type} className="form__submit" onClick={handleSubmit}>
+                {buttonText}
             </button>
         </div>
-    )
+    );
 }
 
 export default FormButtonAuthorize;

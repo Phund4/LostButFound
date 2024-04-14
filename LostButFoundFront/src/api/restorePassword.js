@@ -8,7 +8,7 @@ const errors = {
 
 async function sendCode(email) {
     try {
-        const url = `https://localhost:7110/api/User/ConfirmRegister?code=${email}`;
+        const url = `https://localhost:7110/api/User/SendPasswordLink?email=${email}`;
         let res = "";
         await axios.post(url, {}, {
             headers: {

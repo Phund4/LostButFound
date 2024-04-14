@@ -1,9 +1,10 @@
 import App from '../../pages/App';
-import ConfirmEmail from '../../pages/ConfirmEmail/ConfirmEmail';
-import Registration from '../../pages/Registration/Registration';
-import Login from '../../pages/Login/Login';
-import Profile from '../../pages/Profile/Profile';
-import RestorePassword from '../../pages/RestorePassword/RestorePassword'
+import ConfirmEmail from '../../pages/ConfirmEmail';
+import Registration from '../../pages/Registration';
+import Login from '../../pages/Login';
+import Profile from '../../pages/Profile';
+import RestorePassword from '../../pages/RestorePassword'
+import UpdateUserPassword from '../../pages/UpdateUserPassword'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     {
         path: "/restorepassword",
         element: <RestorePassword/>
+    },
+    {
+        path: "/updateuserpassword",
+        element: <UpdateUserPassword/>
     },
     {
         path: "/myprofile",

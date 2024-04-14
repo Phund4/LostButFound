@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import FormInputAuthorize from '../../components/Form/FormInputAuthorize/FormInputAuthorize';
-import FormButtonAuthorize from '../../components/Form/FormButtonAuthorize/FormButtonAuthorize';
-import FormAuthorize from '../../components/Form/FormAuthorize/FormAuthorize'
-import {sendCode, resendCode} from '../../api/confirmEmail';
-import FormTimer from '../../components/Form/FormTimer/FormTimer'
+import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
+import {sendCode, resendCode} from '../api/confirmEmail';
+import FormTimer from '../components/Form/FormTimer/FormTimer'
 
 const validate = values => {
     const errors = {};
@@ -63,6 +63,7 @@ const ConfirmEmail = () => {
 
     const timer = <FormTimer
         seconds={5}
+        formText='Resend code'
         callback={resendCode}
         callbackParams={[]}
         key="confirm-email-timer"

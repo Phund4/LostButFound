@@ -1,21 +1,25 @@
-import ProfileCustomButton from './ProfileCustomButton/ProfileCustomButton';
-import ProfileTextArea from './ProfileTextArea/ProfileTextArea';
-import ProfileInput from './ProfileInput/ProfileInput';
-import { useFormik } from 'formik'
-import { getTags, hideTags, handleFiles } from './helpers';
-import { addPost } from '../../api/profile'
+import ProfileCustomButton from "./ProfileCustomButton/ProfileCustomButton";
+import ProfileTextArea from "./ProfileTextArea/ProfileTextArea";
+import ProfileInput from "./ProfileInput/ProfileInput";
+import { useFormik } from "formik";
+import { getTags, hideTags, handleFiles } from "./helpers";
+import { addPost } from "../../api/profile";
 
-const validate = values => {
+const validate = (values) => {
     const errors = {};
-    if (!values.title ||
-        !values.description || !values.comment ||
-        !values.tags.city || !values.tags.district ||
-        !values.tags.street || !values.tags.metro) {
-        errors.form = 'Incorrect form';
+    if (
+        !values.title ||
+        !values.description ||
+        !values.comment ||
+        !values.tags.city ||
+        !values.tags.district ||
+        !values.tags.street ||
+        !values.tags.metro
+    ) {
+        errors.form = "Incorrect form";
     }
     return errors;
 };
-
 
 function ProfileConstructor() {
     const formik = useFormik({
@@ -25,16 +29,16 @@ function ProfileConstructor() {
                 city: "",
                 district: "",
                 street: "",
-                metro: []
+                metro: [],
             },
             title: "",
             description: "",
             comment: "",
-            file: new File([], '')
+            file: new File([], ""),
         },
         validate,
-        onSubmit: values => {
-            addPost(values).then(response => {
+        onSubmit: (values) => {
+            addPost(values).then((response) => {
                 console.log(response);
             });
         },
@@ -42,19 +46,26 @@ function ProfileConstructor() {
 
     return (
         <>
-            <form action="/" className="profile-constructor profile-rightbox-child hide" onSubmit={formik.handleSubmit}>
+            <form
+                action="/"
+                className="profile-constructor profile-rightbox-child hide"
+                onSubmit={formik.handleSubmit}
+            >
                 <h1>Add Post</h1>
                 <ul>
                     <li>
                         <div className="profile-block profile-contructor-block profile-constructor-address">
-                            <p>Enter Address: <ProfileTextArea
-                                textareaPlaceholder="Address"
-                                name="address"
-                                rows={3}
-                                maxLength={70}
-                                onChange={formik.handleChange}
-                                value={formik.address}
-                            /></p>
+                            <p>
+                                Enter Address:{" "}
+                                <ProfileTextArea
+                                    textareaPlaceholder="Address"
+                                    name="address"
+                                    rows={3}
+                                    maxLength={70}
+                                    onChange={formik.handleChange}
+                                    value={formik.address}
+                                />
+                            </p>
                         </div>
                     </li>
                     <div className="profile-block profile-contructor-block profile-constructor-tags hide">
@@ -80,53 +91,73 @@ function ProfileConstructor() {
                         />
                     </div>
                     <li>
-                        <ProfileCustomButton className="constructor-button-location" type="button" buttonText="Add Location" handleClick={() => getTags(formik)} />
+                        <ProfileCustomButton
+                            className="constructor-button-location"
+                            type="button"
+                            buttonText="Add Location"
+                            handleClick={() => getTags(formik)}
+                        />
                     </li>
                     <li>
-                        <ProfileCustomButton className="constructor-button-retry hide" type="button" buttonText="Retry" handleClick={() => hideTags(formik)} />
+                        <ProfileCustomButton
+                            className="constructor-button-retry hide"
+                            type="button"
+                            buttonText="Retry"
+                            handleClick={() => hideTags(formik)}
+                        />
                     </li>
                     <li>
                         <div className="profile-block profile-contructor-block">
-                            <p>Title: <ProfileTextArea
-                                textareaPlaceholder="Title"
-                                name="title"
-                                rows={1}
-                                maxLength={20}
-                                onChange={formik.handleChange}
-                                value={formik.title}
-                            /></p>
+                            <p>
+                                Title:{" "}
+                                <ProfileTextArea
+                                    textareaPlaceholder="Title"
+                                    name="title"
+                                    rows={1}
+                                    maxLength={20}
+                                    onChange={formik.handleChange}
+                                    value={formik.title}
+                                />
+                            </p>
                         </div>
                         <div className="profile-block profile-contructor-block">
-                            <p>Description: <ProfileTextArea
-                                textareaPlaceholder="Description"
-                                name="description"
-                                rows={3}
-                                maxLength={100}
-                                onChange={formik.handleChange}
-                                value={formik.description}
-                            /></p>
+                            <p>
+                                Description:{" "}
+                                <ProfileTextArea
+                                    textareaPlaceholder="Description"
+                                    name="description"
+                                    rows={3}
+                                    maxLength={100}
+                                    onChange={formik.handleChange}
+                                    value={formik.description}
+                                />
+                            </p>
                         </div>
                         <div className="profile-block profile-contructor-block">
-                            <p>Comment: <ProfileTextArea
-                                textareaPlaceholder="Comment"
-                                name="comment"
-                                rows={3}
-                                maxLength={100}
-                                onChange={formik.handleChange}
-                                value={formik.comment}
-                            /></p>
+                            <p>
+                                Comment:{" "}
+                                <ProfileTextArea
+                                    textareaPlaceholder="Comment"
+                                    name="comment"
+                                    rows={3}
+                                    maxLength={100}
+                                    onChange={formik.handleChange}
+                                    value={formik.comment}
+                                />
+                            </p>
                         </div>
                         <div className="profile-block profile-contructor-block">
-                            <p>Add Image:
+                            <p>
+                                Add Image:
                                 <input
                                     type="file"
                                     name="file"
                                     onChange={handleFiles}
                                 />
                             </p>
-                            <canvas 
-                                width="300" 
-                                height="300" 
+                            <canvas
+                                width="300"
+                                height="300"
                                 id="constructor-canvas"
                                 name="file"
                                 value={formik.file}
@@ -134,13 +165,15 @@ function ProfileConstructor() {
                         </div>
                     </li>
                     <li>
-                        <ProfileCustomButton type="submit" buttonText="Add Post" />
+                        <ProfileCustomButton
+                            type="submit"
+                            buttonText="Add Post"
+                        />
                     </li>
                 </ul>
             </form>
         </>
-
-    )
+    );
 }
 
 export default ProfileConstructor;

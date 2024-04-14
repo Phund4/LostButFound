@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+const errors = {
+    400: "This user already exists",
+    404: "Something went wrong...",
+    500: "Internal server error",
+};
+
 export async function getUserData() {
     try {
         const token = localStorage.getItem('token');
@@ -7,7 +13,7 @@ export async function getUserData() {
         // if (!!token == false) {
         //     document.location.href = '/login'
         // }
-        axios.get("https://localhost:7110/api/User/GetCurrentUser", {
+        await axios.get("https://localhost:7110/api/User/GetCurrentUser", {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
@@ -16,11 +22,12 @@ export async function getUserData() {
         }).then(response => {
             res = response.data;
         }).catch(err => {
-            console.log(err);
+            throw err
         })
         return res;
-    } catch (error) {
-        return null;
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500]
+        else return errors[404];
     }
 }
 
@@ -106,11 +113,12 @@ export async function getPosts() {
         }).then(response => {
             res = response.data;
         }).catch(err => {
-            console.log(err);
+            throw err;
         })
         return res;
-    } catch (e) {
-        return null;
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500]
+        else return errors[404];
     }
 }
 
@@ -118,7 +126,7 @@ export async function getUserPosts(userID) {
     try {
         const url = `https://localhost:7110/api/Thing/GetPosts?id=${userID}`;
         let res = null;
-        axios.get(url, {
+        await axios.get(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
@@ -126,10 +134,11 @@ export async function getUserPosts(userID) {
         }).then(response => {
             res = response.data;
         }).catch(err => {
-            console.log(err);
+            throw err
         })
         return res;
-    } catch (e) {
-        return null;
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500]
+        else return errors[400];
     }
 }

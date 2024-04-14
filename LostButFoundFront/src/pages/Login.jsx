@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import FormInputAuthorize from '../../components/Form/FormInputAuthorize/FormInputAuthorize';
-import FormButtonAuthorize from '../../components/Form/FormButtonAuthorize/FormButtonAuthorize';
-import FormAuthorize from '../../components/Form/FormAuthorize/FormAuthorize'
-import sendLoginData from '../../api/login';
+import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
+import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
+import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
+import sendLoginData from '../api/login';
 
 const validate = values => {
     const errors = {};
