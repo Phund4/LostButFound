@@ -8,8 +8,8 @@ const errors = {
 
 async function updatePassword(password) {
     try {
-        const url = "https://localhost:7110/api/User/UpdatePassword";
         const id = document.location.href.split('?')[1].split("=")[1];
+        const url = `https://localhost:7110/api/User/UpdatePassword?userId=${id}&newPassword=${password}`;
         let res = "";
         await axios
             .post(
