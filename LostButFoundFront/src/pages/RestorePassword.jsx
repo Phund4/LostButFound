@@ -1,5 +1,4 @@
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
 import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
 import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
@@ -17,7 +16,6 @@ const validate = values => {
 };
 
 const RestorePassword = () => {
-    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             emailToRestore: '',
@@ -27,7 +25,7 @@ const RestorePassword = () => {
             const msg = sendCode(values.emailToRestore);
             msg.then(resp => {
                 if (resp == 'Done') {
-                    navigate('/login');
+                    alert("Letter send!")
                     return;
                 }
                 document.getElementById('restorepassword-status-error').textContent = resp;

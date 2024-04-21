@@ -1,14 +1,19 @@
 import ProfileInput from './ProfileInput/ProfileInput';
 import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost'
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserData, getUserPosts } from '../../api/profile';
 function ProfileUserData() {
+    let navigate = useNavigate();
     const [fullname, setFullname] = useState("");
     const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
     const [rating, setRating] = useState(0);
     const [posts, setPosts] = useState([]);
     useEffect(() => {
+        if (!!localStorage.getItem('token') == false) {
+            navigate('/login');
+        }
         getUserData().then(result => {
             setFullname(result.fullName);
             setLogin(result.login);
@@ -18,7 +23,7 @@ function ProfileUserData() {
         getUserPosts().then(result => {
             setPosts(result);
         })
-    }, [])
+    }, )
     return (
         <div className="profile-profile profile-rightbox-child">
             <h1>Personal Info</h1>
@@ -52,7 +57,7 @@ function ProfileUserData() {
                             district={el.district}
                             street={el.street}
                             metro={el.metro}
-                            username={el.username}
+                            username={el.userName}
                             imgSrc={el.imgsrc}
                             title={el.name}
                             description={el.description}

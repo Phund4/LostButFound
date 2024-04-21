@@ -9,10 +9,7 @@ const errors = {
 export async function getUserData() {
     try {
         const token = localStorage.getItem('token');
-        let res = null;
-        if (!!token == false) {
-            document.location.href = '/login'
-        }
+        let res;
         await axios.get("https://localhost:7110/api/User/GetCurrentUser", {
             headers: {
                 "Accept": 'application/json',
@@ -130,7 +127,7 @@ export async function getUserPosts() {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
-                "Authorization": `Berear ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         }).then(response => {
             res = response.data;
