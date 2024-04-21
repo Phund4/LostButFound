@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputAuthorize';
 import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
 import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
-import updatePassword from '../api/updateUserPassword';
+import { updatePassword } from '../api/updateUserPassword';
 import FormTimer from '../components/Form/FormTimer/FormTimer'
 
 const validate = values => {

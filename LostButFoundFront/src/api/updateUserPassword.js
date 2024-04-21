@@ -37,8 +37,3 @@ export async function updatePassword(password) {
         else return errors[404];
     }
 }
-
-export async function resendLetter() {
-    
-}
-
