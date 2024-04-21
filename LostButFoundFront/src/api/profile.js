@@ -122,17 +122,19 @@ export async function getPosts() {
     }
 }
 
-export async function getUserPosts(userID) {
+export async function getUserPosts() {
     try {
-        const url = `https://localhost:7110/api/Thing/GetUserPosts?id=${userID}`;
+        const url = `https://localhost:7110/api/Thing/GetUserPosts`;
         let res = null;
         await axios.get(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
+                "Authorization": `Berear ${localStorage.getItem('token')}`
             }
         }).then(response => {
             res = response.data;
+            console.log(response)
         }).catch(err => {
             throw err
         })
