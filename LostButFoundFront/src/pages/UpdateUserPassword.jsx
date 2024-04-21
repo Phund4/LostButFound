@@ -4,7 +4,6 @@ import FormInputAuthorize from '../components/Form/FormInputAuthorize/FormInputA
 import FormButtonAuthorize from '../components/Form/FormButtonAuthorize/FormButtonAuthorize';
 import FormAuthorize from '../components/Form/FormAuthorize/FormAuthorize'
 import { updatePassword } from '../api/updateUserPassword';
-import FormTimer from '../components/Form/FormTimer/FormTimer'
 
 const validate = values => {
     const errors = {};
@@ -79,19 +78,19 @@ const UpdateUserPassword = () => {
         key="UpdatePasswordButton"
     />
 
-    const updatePasswordTimer = <FormTimer
-        seconds={5}
-        formText='Resend letter'
-        callback={updatePassword}
-        callbackParams={formik.values.updatePassword}
-        key="updatepassword-form-timer"
-    />
+    // const updatePasswordTimer = <FormTimer
+    //     seconds={5}
+    //     formText='Resend letter'
+    //     callback={updatePassword}
+    //     callbackParams={formik.values.updatePassword}
+    //     key="updatepassword-form-timer"
+    // />
 
     return (
         <FormAuthorize
             headerText="Update password Form"
             onSubmit={formik.handleSubmit}
-            childrens={[password, repeatPassword, messageError, submitButton, updatePasswordTimer]}
+            childrens={[password, repeatPassword, messageError, submitButton]}
         />
     )
 }
