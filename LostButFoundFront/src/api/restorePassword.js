@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const errors = {
-    400: "Incorrect code",
+    400: "Incorrect email",
     404: "Something went wrong...",
     500: "Internal server error"
 }

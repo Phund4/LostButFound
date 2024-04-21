@@ -82,6 +82,8 @@ const UpdateUserPassword = () => {
     const updatePasswordTimer = <FormTimer
         seconds={5}
         formText='Resend letter'
+        callback={updatePassword}
+        callbackParams={formik.values.updatePassword}
         key="updatepassword-form-timer"
     />
 

@@ -43,6 +43,7 @@ export async function resendCode() {
         })
         return res;
     } catch (err) {
-        return errors[500]
+        if (err.code == "ERR_NETWORK") return errors[500];
+        else return errors[500];
     }
 }
