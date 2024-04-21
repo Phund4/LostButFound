@@ -36,7 +36,7 @@ export async function updateLogin(login) {
         const token = localStorage.getItem('token');
         let res = null;
         const url = `https://localhost:7110/api/User/UpdateLogin?newLogin=${login}`;
-        axios.post(url, {}, {
+        await axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
@@ -57,7 +57,7 @@ export async function getAddress(address) {
     try {
         const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
         let res = null;
-        axios.post(url, {}, {
+        await axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
@@ -85,7 +85,7 @@ export async function addPost(values) {
             `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
             `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
         let res = null;
-        axios.post(url, {}, {
+        await axios.post(url, {}, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
                 "Authorization": `Bearer ${token}`
@@ -105,7 +105,7 @@ export async function getPosts() {
     try {
         const url = 'https://localhost:7110/api/Thing/GetPosts';
         let res = null;
-        axios.get(url, {
+        await axios.get(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',

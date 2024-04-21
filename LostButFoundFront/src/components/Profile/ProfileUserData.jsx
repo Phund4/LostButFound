@@ -45,8 +45,8 @@ function ProfileUserData() {
                 />
             </ul>
             <ul>
-                {posts.map((ind, el) => {
-                    return <li key={ind}>
+                {posts.map((el, ind) => {
+                    return <li key={`UserPost-${ind}`}>
                         <ProfileCustomPost
                             city={el.city}
                             district={el.district}
@@ -54,9 +54,8 @@ function ProfileUserData() {
                             metro={el.metro}
                             username={el.username}
                             imgSrc={el.imgsrc}
-                            title={el.title}
+                            title={el.name}
                             description={el.description}
-                            comment={el.comment}
                         />
                     </li>
                 })}

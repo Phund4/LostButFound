@@ -9,8 +9,7 @@ export default function ProfileCustomPost({
     street,
     metro,
     title,
-    description,
-    comment,
+    description
 }) {
     return (
         <div className="blog-card">
@@ -48,7 +47,6 @@ export default function ProfileCustomPost({
                 <h3>Title: {title}</h3>
                 <h4></h4>
                 <p>Description: {description}</p>
-                <p>Comment: {comment}</p>
                 <p className="read-more">
                     <a href="#">I found it</a>
                 </p>
