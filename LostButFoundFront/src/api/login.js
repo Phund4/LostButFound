@@ -19,7 +19,7 @@ async function sendLoginData(loginOrEmail, password) {
                 "Content-Type": 'application/json'
             }
         }).then(response => {
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data);
             res = 'Done';
         }).catch((err) => {
             throw err

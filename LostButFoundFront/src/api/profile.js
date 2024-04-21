@@ -10,9 +10,9 @@ export async function getUserData() {
     try {
         const token = localStorage.getItem('token');
         let res = null;
-        // if (!!token == false) {
-        //     document.location.href = '/login'
-        // }
+        if (!!token == false) {
+            document.location.href = '/login'
+        }
         await axios.get("https://localhost:7110/api/User/GetCurrentUser", {
             headers: {
                 "Accept": 'application/json',
@@ -124,7 +124,7 @@ export async function getPosts() {
 
 export async function getUserPosts(userID) {
     try {
-        const url = `https://localhost:7110/api/Thing/GetPosts?id=${userID}`;
+        const url = `https://localhost:7110/api/Thing/GetUserPosts?id=${userID}`;
         let res = null;
         await axios.get(url, {
             headers: {
