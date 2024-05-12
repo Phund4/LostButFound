@@ -24,7 +24,7 @@ function ProfileUserData() {
         getUserPosts().then(result => {
             setPosts(result);
         })
-    }, )
+    }, [])
     return (
         <div className="profile-profile profile-rightbox-child">
             <h1>Personal Info</h1>

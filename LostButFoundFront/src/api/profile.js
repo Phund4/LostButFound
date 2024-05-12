@@ -123,7 +123,7 @@ export async function getPosts() {
 export async function getUserPosts() {
     try {
         const url = `https://localhost:7110/api/Thing/GetUserPosts`;
-        let res = null;
+        let res;
         await axios.get(url, {
             headers: {
                 "Accept": 'application/json',
@@ -138,8 +138,10 @@ export async function getUserPosts() {
         })
         return res;
     } catch (err) {
-        if (err.code == "ERR_NETWORK") return errors[500]
-        else return errors[400];
+        console.log(err);
+        return [];
+        // if (err.code == "ERR_NETWORK") return errors[500]
+        // else return errors[400];
     }
 }
 
