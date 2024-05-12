@@ -1,17 +1,21 @@
 import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost';
 import { useEffect, useState} from 'react';
 import { getPosts } from '../../api/profile';
+import { useInView } from 'react-intersection-observer';
 
 function ProfileConstructorInfo() {
+    const [ref, inView] = useInView();
     let [posts, setPosts] = useState([]);
     useEffect(() => {
-        getPosts().then(result => {
-            setPosts(result);
-        })
-    }, [])
+        if (inView) {
+            getPosts().then(result => {
+                setPosts(result);
+            })
+        }
+    }, [inView])
     return (
         <>
-            <div className="profile-posts profile-rightbox-child hide">
+            <div className="profile-posts profile-rightbox-child hide" ref={ref}>
                 <h1>Posts</h1>
                 {typeof posts == Object ? posts?.map((el, index) =>
                         <ProfileCustomPost

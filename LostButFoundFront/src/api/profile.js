@@ -54,7 +54,7 @@ export async function getAddress(address) {
     try {
         const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
         let res = null;
-        await axios.post(url, {}, {
+        await axios.post(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json'
@@ -62,11 +62,12 @@ export async function getAddress(address) {
         }).then(response => {
             res = response.data;
         }).catch(err => {
-            console.log(err);
+            throw err;
         })
         return res;
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        return null;
     }
 }
 
