@@ -95,7 +95,7 @@ function ProfileConstructor() {
                             className="constructor-button-location"
                             type="button"
                             buttonText="Add Location"
-                            handleClick={() => getTags(formik)}
+                            handleClick={() => getTags(formik, formik.values.address)}
                         />
                     </li>
                     <li>
@@ -103,7 +103,7 @@ function ProfileConstructor() {
                             className="constructor-button-retry hide"
                             type="button"
                             buttonText="Retry"
-                            handleClick={() => hideTags(formik)}
+                            handleClick={() => hideTags()}
                         />
                     </li>
                     <li>
