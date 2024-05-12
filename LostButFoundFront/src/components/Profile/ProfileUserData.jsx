@@ -1,19 +1,20 @@
 import ProfileInput from './ProfileInput/ProfileInput';
 import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserData, getUserPosts } from '../../api/profile';
 function ProfileUserData() {
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
     const [fullname, setFullname] = useState("");
     const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
     const [rating, setRating] = useState(0);
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-        if (!!localStorage.getItem('token') == false) {
-            navigate('/login');
-        }
+
+        // if (!!localStorage.getItem('token') == false) {
+        //     navigate('/login');
+        // }
         getUserData().then(result => {
             setFullname(result.fullName);
             setLogin(result.login);
@@ -50,7 +51,7 @@ function ProfileUserData() {
                 />
             </ul>
             <ul>
-                {posts.map((el, ind) => {
+                {typeof posts == Object ? posts?.map((el, ind) => {
                     return <li key={`UserPost-${ind}`}>
                         <ProfileCustomPost
                             city={el.city}
@@ -61,9 +62,10 @@ function ProfileUserData() {
                             imgSrc={el.imgsrc}
                             title={el.name}
                             description={el.description}
+                            isDeletePost={true}
                         />
                     </li>
-                })}
+                }) : []}
             </ul>
         </div>
     )

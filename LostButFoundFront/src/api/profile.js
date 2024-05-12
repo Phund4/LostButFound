@@ -141,3 +141,24 @@ export async function getUserPosts() {
         else return errors[400];
     }
 }
+
+export async function DeletePost(title) {
+    try {
+        const url = `https://localhost:7110/api/Thing/DeleteThing?title=${title}`;
+        let res = null;
+        await axios.post(url, {
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": 'application/json',
+            }
+        }).then(response => {
+            res = response.data;
+        }).catch(err => {
+            throw err;
+        })
+        return res;
+    } catch (err) {
+        if (err.code == "ERR_NETWORK") return errors[500]
+        else return errors[404];
+    }
+}

@@ -13,7 +13,7 @@ function ProfileConstructorInfo() {
         <>
             <div className="profile-posts profile-rightbox-child hide">
                 <h1>Posts</h1>
-                {posts?.map((el, index) =>
+                {typeof posts == Object ? posts?.map((el, index) =>
                         <ProfileCustomPost
                             username={el.userName}
                             imgsrc={el.pathToIMG}
@@ -25,7 +25,7 @@ function ProfileConstructorInfo() {
                             description={el.description}
                             key={index}
                         />
-                )}
+                ) : []}
             </div>
         </>
 
