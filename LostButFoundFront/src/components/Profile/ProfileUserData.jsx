@@ -1,20 +1,20 @@
 import ProfileInput from './ProfileInput/ProfileInput';
 import ProfileCustomPost from './ProfileCustomPost/ProfileCustomPost'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getUserData, getUserPosts } from '../../api/profile';
+import { getUserData, getUserPosts, deletePost } from '../../api/profile';
 function ProfileUserData() {
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
     const [fullname, setFullname] = useState("");
     const [login, setLogin] = useState("");
     const [email, setEmail] = useState("");
     const [rating, setRating] = useState(0);
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
+    const [userPosts, setUserPosts] = useState([]);
 
-        // if (!!localStorage.getItem('token') == false) {
-        //     navigate('/login');
-        // }
+    useEffect(() => {
+        if (!!localStorage.getItem('token') == false) {
+            navigate('/login');
+        }
         getUserData().then(result => {
             setFullname(result.fullName);
             setLogin(result.login);
@@ -22,9 +22,16 @@ function ProfileUserData() {
             setRating(result.rating);
         });
         getUserPosts().then(result => {
-            setPosts(result);
+            setUserPosts(result);
         })
-    }, [])
+    }, )
+
+    function deletePostHandler(title) {
+        deletePost(title).then(resp => {
+            console.log(resp);
+            setUserPosts(prevPosts => prevPosts.filter(post => post.name !== title))
+        })
+    }
     return (
         <div className="profile-profile profile-rightbox-child">
             <h1>Personal Info</h1>
@@ -51,7 +58,7 @@ function ProfileUserData() {
                 />
             </ul>
             <ul>
-                {typeof posts == Object ? posts?.map((el, ind) => {
+                {userPosts?.map((el, ind) => {
                     return <li key={`UserPost-${ind}`}>
                         <ProfileCustomPost
                             city={el.city}
@@ -62,10 +69,12 @@ function ProfileUserData() {
                             imgSrc={el.imgsrc}
                             title={el.name}
                             description={el.description}
-                            isDeletePost={true}
+                            IsFoundButton={false}
+                            isDeletePostButton={true}
+                            DeletePostHandler={() => deletePostHandler(el.name)}
                         />
                     </li>
-                }) : []}
+                })}
             </ul>
         </div>
     )

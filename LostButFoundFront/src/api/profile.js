@@ -123,12 +123,13 @@ export async function getPosts() {
 export async function getUserPosts() {
     try {
         const url = `https://localhost:7110/api/Thing/GetUserPosts`;
-        let res;
+        const token = localStorage.getItem('token');
+        let res = null;
         await axios.get(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('token')}`
+                "Authorization": `Bearer ${token}`
             }
         }).then(response => {
             res = response.data;
@@ -145,14 +146,16 @@ export async function getUserPosts() {
     }
 }
 
-export async function DeletePost(title) {
+export async function deletePost(title) {
     try {
         const url = `https://localhost:7110/api/Thing/DeleteThing?title=${title}`;
+        const token = localStorage.getItem('token');
         let res = null;
         await axios.post(url, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',
+                "Authorization": `Bearer ${token}`
             }
         }).then(response => {
             res = response.data;

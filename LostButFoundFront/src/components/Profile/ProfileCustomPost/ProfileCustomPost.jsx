@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import "./profile-custom-post.sass";
-import { DeletePost } from "../../../api/profile";
 
 export default function ProfileCustomPost({
     imgsrc,
@@ -11,7 +10,9 @@ export default function ProfileCustomPost({
     metro,
     title,
     description,
-    isDeletePost = false
+    isDeletePostButton = false,
+    IsFoundButton = false,
+    DeletePostHandler,
 }) {
     return (
         <div className="blog-card">
@@ -49,10 +50,10 @@ export default function ProfileCustomPost({
                 <h3>Title: {title}</h3>
                 <h4></h4>
                 <p>Description: {description}</p>
-                <p className="read-more">
+                {IsFoundButton ? <p className="read-more">
                     <a href="#">I found it</a>
-                </p>
-                {isDeletePost ? <p className="read-more" onClick={DeletePost}>
+                </p> : <></>}
+                {isDeletePostButton ? <p className="read-more" onClick={DeletePostHandler}>
                     <a href="#">Delete Post</a>
                 </p> : <></>}
             </div>
