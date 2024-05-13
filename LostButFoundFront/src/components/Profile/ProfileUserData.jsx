@@ -22,9 +22,10 @@ function ProfileUserData() {
             setRating(result.rating);
         });
         getUserPosts().then(result => {
+            console.log(result)
             setUserPosts(result);
         })
-    }, )
+    }, [navigate])
 
     function deletePostHandler(title) {
         deletePost(title).then(resp => {
