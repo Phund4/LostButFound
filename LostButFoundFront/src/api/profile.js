@@ -151,7 +151,7 @@ export async function deletePost(title) {
         const url = `https://localhost:7110/api/Thing/DeleteThing?title=${title}`;
         const token = localStorage.getItem('token');
         let res = null;
-        await axios.post(url, {
+        await axios.post(url, {}, {
             headers: {
                 "Accept": 'application/json',
                 "Content-Type": 'application/json',

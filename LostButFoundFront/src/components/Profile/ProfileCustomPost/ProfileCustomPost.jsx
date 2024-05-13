@@ -39,7 +39,7 @@ export default function ProfileCustomPost({
                             </li>
                             <br />
                             <li>
-                                Metro: <a href="#">{metro}</a>
+                                Metro: {metro.map(el => {<a href="#">{el    }</a>})}
                             </li>
                             <br />
                         </ul>
