@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const errors = {
     400: "This user already exists",
@@ -8,42 +8,52 @@ const errors = {
 
 export async function getUserData() {
     try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         let res;
-        await axios.get("https://localhost:7110/api/User/GetCurrentUser", {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            throw err
-        })
+        await axios
+            .get("https://localhost:7110/api/User/GetCurrentUser", {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                res = response.data;
+            })
+            .catch((err) => {
+                throw err;
+            });
         return res;
     } catch (err) {
-        if (err.code == "ERR_NETWORK") return errors[500]
+        if (err.code == "ERR_NETWORK") return errors[500];
         else return errors[404];
     }
 }
 
 export async function updateLogin(login) {
     try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         let res = null;
         const url = `https://localhost:7110/api/User/UpdateLogin?newLogin=${login}`;
-        await axios.post(url, {}, {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            console.log(err);
-        })
+        await axios
+            .post(
+                url,
+                {},
+                {
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((response) => {
+                res = response.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         return res;
     } catch (err) {
         return null;
@@ -54,82 +64,83 @@ export async function getAddress(address) {
     try {
         const url = `https://localhost:7110/api/Thing/EditData?data=${address}`;
         let res = null;
-        await axios.post(url, {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json'
-            }
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            throw err;
-        })
+        await axios
+            .post(url, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                res = response.data;
+            })
+            .catch((err) => {
+                throw err;
+            });
         return res;
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return null;
     }
 }
 
 export async function addPost(values) {
-    console.log(values);
     const reader = new FileReader();
     reader.readAsArrayBuffer(values.file);
+    const bytesArr = new Uint8Array(reader.result)
+    const base64String = btoa(String.fromCharCode(bytesArr))
+    const formData = new FormData();
+    formData.append("Username", "");
+    formData.append("Name", values.title);
+    formData.append("Description", values.description);
+    formData.append("PathToImg", base64String);
+    formData.append("IsLost", 1);
+    formData.append("City", values.tags.city);
+    formData.append("District", values.tags.district);
+    formData.append("Street", values.tags.street);
+    formData.append("Metro", values.tags.metro);
+    formData.append("IsApproved", 0);
     try {
         const token = localStorage.getItem('token');
-        // const url = `https://localhost:7110/api/Thing/AddPost?Name` +
-        //     `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
-        //     `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
-        const url = `https://localhost:7110/api/Thing/AddPost`
-        const bytesArr = new Uint8Array(reader.result)
-        const base64String = btoa(String.fromCharCode(bytesArr))
         console.log(bytesArr)
         let res = null;
-        await axios.post(url, {}, {
+        const url = `https://localhost:7110/api/Thing/AddPost`
+        await axios.post(url, formData, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
                 "Authorization": `Bearer ${token}`
             },
-            body: {
-                Username: "",
-                Name: values.title,
-                Description: values.description,
-                PathToImg: base64String,
-                IsLost: 1,
-                City: values.tags.city,
-                District: values.tags.district,
-                Street: values.tags.street,
-                Metro : values.tags.metro,
-                IsApproved: 0
-            }
         }).then(response => {
             res = response.data;
         }).catch(err => {
             console.log(err);
         })
         return res;
-    } catch (err) {
+    } catch(err) {
         return null;
     }
 }
 
 export async function getPosts() {
     try {
-        const url = 'https://localhost:7110/api/Thing/GetPosts';
+        const url = "https://localhost:7110/api/Thing/GetPosts";
         let res = null;
-        await axios.get(url, {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-            }
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            throw err;
-        })
+        await axios
+            .get(url, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => {
+                res = response.data;
+            })
+            .catch((err) => {
+                throw err;
+            });
         return res;
     } catch (err) {
-        if (err.code == "ERR_NETWORK") return errors[500]
+        if (err.code == "ERR_NETWORK") return errors[500];
         else return errors[404];
     }
 }
@@ -137,20 +148,23 @@ export async function getPosts() {
 export async function getUserPosts() {
     try {
         const url = `https://localhost:7110/api/Thing/GetUserPosts`;
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         let res = null;
-        await axios.get(url, {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => {
-            res = response.data;
-            console.log(response)
-        }).catch(err => {
-            throw err
-        })
+        await axios
+            .get(url, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                res = response.data;
+                console.log(response);
+            })
+            .catch((err) => {
+                throw err;
+            });
         return res;
     } catch (err) {
         console.log(err);
@@ -163,22 +177,29 @@ export async function getUserPosts() {
 export async function deletePost(title) {
     try {
         const url = `https://localhost:7110/api/Thing/DeleteThing?title=${title}`;
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         let res = null;
-        await axios.post(url, {}, {
-            headers: {
-                "Accept": 'application/json',
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            throw err;
-        })
+        await axios
+            .post(
+                url,
+                {},
+                {
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((response) => {
+                res = response.data;
+            })
+            .catch((err) => {
+                throw err;
+            });
         return res;
     } catch (err) {
-        if (err.code == "ERR_NETWORK") return errors[500]
+        if (err.code == "ERR_NETWORK") return errors[500];
         else return errors[404];
     }
 }
