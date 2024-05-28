@@ -73,21 +73,34 @@ export async function getAddress(address) {
 
 export async function addPost(values) {
     console.log(values);
-    let canvas = document.getElementById('constructor-canvas');
-    let dataURL = canvas.toDataURL();
-    console.log(dataURL)
-    let formdata = new FormData();
-    formdata.append('file', values.file);
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(values.file);
     try {
         const token = localStorage.getItem('token');
-        const url = `https://localhost:7110/api/Thing/AddPost?Name` +
-            `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
-            `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
+        // const url = `https://localhost:7110/api/Thing/AddPost?Name` +
+        //     `=${values.title}&Description=${values.description}&City=${values.tags.city}` +
+        //     `&District=${values.tags.district}&Street=${values.tags.street}&Metro=${values.tags.metro}`;
+        const url = `https://localhost:7110/api/Thing/AddPost`
+        const bytesArr = new Uint8Array(reader.result)
+        const base64String = btoa(String.fromCharCode(bytesArr))
+        console.log(bytesArr)
         let res = null;
         await axios.post(url, {}, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
                 "Authorization": `Bearer ${token}`
+            },
+            body: {
+                Username: "",
+                Name: values.title,
+                Description: values.description,
+                PathToImg: base64String,
+                IsLost: 1,
+                City: values.tags.city,
+                District: values.tags.district,
+                Street: values.tags.street,
+                Metro : values.tags.metro,
+                IsApproved: 0
             }
         }).then(response => {
             res = response.data;

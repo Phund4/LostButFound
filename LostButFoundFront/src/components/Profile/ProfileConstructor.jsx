@@ -63,7 +63,7 @@ function ProfileConstructor() {
                                     rows={3}
                                     maxLength={70}
                                     onChange={formik.handleChange}
-                                    value={formik.address}
+                                    value={formik.values.address}
                                 />
                             </p>
                         </div>
@@ -116,7 +116,7 @@ function ProfileConstructor() {
                                     rows={1}
                                     maxLength={20}
                                     onChange={formik.handleChange}
-                                    value={formik.title}
+                                    value={formik.values.title}
                                 />
                             </p>
                         </div>
@@ -129,7 +129,7 @@ function ProfileConstructor() {
                                     rows={3}
                                     maxLength={100}
                                     onChange={formik.handleChange}
-                                    value={formik.description}
+                                    value={formik.values.description}
                                 />
                             </p>
                         </div>
@@ -143,11 +143,9 @@ function ProfileConstructor() {
                                 />
                             </p>
                             <canvas
-                                width="300"
-                                height="300"
                                 id="constructor-canvas"
                                 name="file"
-                                value={formik.file}
+                                value={formik.values.file}
                             />
                         </div>
                     </li>
