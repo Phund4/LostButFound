@@ -73,10 +73,11 @@ export async function getAddress(address) {
 
 export async function addPost(values) {
     console.log(values);
-    // let canvas = document.getElementById('constructor-canvas');
-    // let dataURL = canvas.toDataURL();
-    // let formdata = new FormData();
-    // formdata.append('file', values.file);
+    let canvas = document.getElementById('constructor-canvas');
+    let dataURL = canvas.toDataURL();
+    console.log(dataURL)
+    let formdata = new FormData();
+    formdata.append('file', values.file);
     try {
         const token = localStorage.getItem('token');
         const url = `https://localhost:7110/api/Thing/AddPost?Name` +
