@@ -10,7 +10,6 @@ const validate = (values) => {
     if (
         !values.title ||
         !values.description ||
-        !values.comment ||
         !values.tags.city ||
         !values.tags.district ||
         !values.tags.street ||
@@ -33,13 +32,14 @@ function ProfileConstructor() {
             },
             title: "",
             description: "",
-            comment: "",
             file: new File([], ""),
         },
         validate,
         onSubmit: (values) => {
             addPost(values).then((response) => {
                 console.log(response);
+                alert("Post successfully added!");
+                formik.resetForm();
             });
         },
     });
@@ -130,19 +130,6 @@ function ProfileConstructor() {
                                     maxLength={100}
                                     onChange={formik.handleChange}
                                     value={formik.description}
-                                />
-                            </p>
-                        </div>
-                        <div className="profile-block profile-contructor-block">
-                            <p>
-                                Comment:{" "}
-                                <ProfileTextArea
-                                    textareaPlaceholder="Comment"
-                                    name="comment"
-                                    rows={3}
-                                    maxLength={100}
-                                    onChange={formik.handleChange}
-                                    value={formik.comment}
                                 />
                             </p>
                         </div>

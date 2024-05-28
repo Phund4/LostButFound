@@ -28,11 +28,11 @@ function ProfileUserData() {
     }, [navigate])
 
     function deletePostHandler(title) {
-        deletePost(title).then(resp => {
-            console.log(resp);
+        deletePost(title).then(() => {
             setUserPosts(prevPosts => prevPosts.filter(post => post.name !== title))
         })
     }
+
     return (
         <div className="profile-profile profile-rightbox-child">
             <h1>Personal Info</h1>
