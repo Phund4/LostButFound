@@ -2,7 +2,7 @@ import ProfileCustomButton from "./ProfileCustomButton/ProfileCustomButton";
 import ProfileTextArea from "./ProfileTextArea/ProfileTextArea";
 import ProfileInput from "./ProfileInput/ProfileInput";
 import { useFormik } from "formik";
-import { getTags, hideTags, handleFiles } from "./helpers";
+import { getTags, hideTags } from "./helpers";
 import { addPost } from "../../api/profile";
 
 const validate = (values) => {
@@ -138,8 +138,10 @@ function ProfileConstructor() {
                                 Add Image:
                                 <input
                                     type="file"
-                                    name="file"
-                                    onChange={handleFiles}
+                                    name="file1"
+                                    onChange={(event) => {
+                                        formik.setFieldValue('file', event.target.files[0])
+                                    }}
                                 />
                             </p>
                             <canvas
