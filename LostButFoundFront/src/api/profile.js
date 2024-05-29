@@ -86,39 +86,43 @@ export async function getAddress(address) {
 
 export async function addPost(values) {
     const reader = new FileReader();
-    reader.readAsArrayBuffer(values.file);
-    const bytesArr = new Uint8Array(reader.result)
-    const base64String = btoa(String.fromCharCode(bytesArr))
-    const formData = new FormData();
-    formData.append("Username", "");
-    formData.append("Name", values.title);
-    formData.append("Description", values.description);
-    formData.append("PathToImg", base64String);
-    formData.append("IsLost", 1);
-    formData.append("City", values.tags.city);
-    formData.append("District", values.tags.district);
-    formData.append("Street", values.tags.street);
-    formData.append("Metro", values.tags.metro);
-    formData.append("IsApproved", 0);
-    try {
-        const token = localStorage.getItem('token');
-        console.log(bytesArr)
-        let res = null;
-        const url = `https://localhost:7110/api/Thing/AddPost`
-        await axios.post(url, formData, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; multipart/form-data; boundary=---------",
-                "Authorization": `Bearer ${token}`
-            },
-        }).then(response => {
-            res = response.data;
-        }).catch(err => {
-            console.log(err);
-        })
-        return res;
-    } catch(err) {
-        return null;
-    }
+    reader.readAsDataURL(values.file);
+    reader.onloadend = async () => {
+        const base64String = reader.result.split(",")[1];
+        console.log(base64String);
+        const formData = new FormData();
+        formData.append("Username", "ADADA");
+        formData.append("Name", values.title);
+        formData.append("Description", values.description);
+        formData.append("PathToImg", base64String);
+        formData.append("IsLost", 1);
+        formData.append("City", values.tags.city);
+        formData.append("District", values.tags.district);
+        formData.append("Street", values.tags.street);
+        formData.append("Metro", values.tags.metro);
+        formData.append("IsApproved", 0);
+        try {
+            const token = localStorage.getItem("token");
+            let res = null;
+            const url = `https://localhost:7110/api/Thing/AddPost`;
+            await axios
+                .post(url, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data;",
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    res = response.data;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            return res;
+        } catch (err) {
+            return null;
+        }
+    };
 }
 
 export async function getPosts() {
