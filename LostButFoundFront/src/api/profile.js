@@ -88,8 +88,7 @@ export async function addPost(values) {
     const reader = new FileReader();
     reader.readAsDataURL(values.file);
     reader.onloadend = async () => {
-        const base64String = reader.result.split(",")[1];
-        console.log(base64String);
+        const base64String = reader.result;
         const formData = new FormData();
         formData.append("Username", "ADADA");
         formData.append("Name", values.title);
@@ -133,7 +132,7 @@ export async function getPosts() {
             .get(url, {
                 headers: {
                     Accept: "application/json",
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data;",
                 },
             })
             .then((response) => {
@@ -158,7 +157,7 @@ export async function getUserPosts() {
             .get(url, {
                 headers: {
                     Accept: "application/json",
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data;",
                     Authorization: `Bearer ${token}`,
                 },
             })

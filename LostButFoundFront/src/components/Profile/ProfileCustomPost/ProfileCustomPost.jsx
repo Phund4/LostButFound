@@ -17,8 +17,8 @@ export default function ProfileCustomPost({
     return (
         <div className="blog-card">
             <div className="meta">
-                <div className="photo">
-                    <img src={imgsrc} />
+                <div>
+                    <img className="photo" src={imgsrc} />
                 </div>
                 <ul className="details">
                     <li className="author">

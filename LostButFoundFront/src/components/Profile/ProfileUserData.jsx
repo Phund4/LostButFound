@@ -67,7 +67,7 @@ function ProfileUserData() {
                             street={el.street}
                             metro={el.metro}
                             username={el.userName}
-                            imgSrc={el.imgsrc}
+                            imgsrc={el.pathToIMG}
                             title={el.name}
                             description={el.description}
                             IsFoundButton={false}
